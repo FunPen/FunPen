@@ -29,7 +29,7 @@
         <LinearLayout
             android:id="@+id/drawView_bottomMenu"
             android:layout_width="fill_parent"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="-80dp"
             android:background="#99000000"
@@ -39,60 +39,68 @@
                 android:id="@+id/drawView_arrowWrapper"
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
-                android:gravity="center_horizontal" >
+                android:gravity="center_horizontal|bottom" >
 
                 <ImageView
                     android:id="@+id/bottomMenu_arrow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
                     android:contentDescription="@string/bottomMenu_arrowDescription"
                     android:rotation="180"
                     android:src="@drawable/bottommenu_arrow" />
             </RelativeLayout>
 
-            <LinearLayout
-                android:id="@+id/bottomMenu_toolsLayout"
-                android:layout_width="fill_parent"
-                android:layout_height="80dp"
-                android:orientation="horizontal"
-                android:scrollbarSize="1dp"
-                android:scrollbarStyle="insideInset" >
+            <HorizontalScrollView
+                android:id="@+id/bottomMenu_horizontalScroll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:animateLayoutChanges="false"
+                android:scrollbars="none"
+                android:overScrollMode="never">
 
-                <ImageView
-                    android:id="@+id/tool_colorscaleButton"
-                    android:layout_width="80dp"
+                <LinearLayout
+                    android:id="@+id/bottomMenu_toolsLayout"
+                    android:layout_width="wrap_content"
                     android:layout_height="80dp"
-                    android:contentDescription="@string/bottomMenu_colorscaleDescription"
-                    android:src="@drawable/bottommenu_colorscale" />
+                    android:orientation="horizontal" >
 
-                <ImageView
-                    android:id="@+id/tool_stretchButton"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:contentDescription="@string/bottomMenu_stretchDescription"
-                    android:src="@drawable/bottommenu_stretch" />
+                    <ImageView
+                        android:id="@+id/tool_colorscaleButton"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:contentDescription="@string/bottomMenu_colorscaleDescription"
+                        android:src="@drawable/bottommenu_colorscale" />
 
-                <ImageView
-                    android:id="@+id/tool_inflateButton"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:contentDescription="@string/bottomMenu_inflateDescription"
-                    android:src="@drawable/bottommenu_inflate" />
+                    <ImageView
+                        android:id="@+id/tool_stretchButton"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:contentDescription="@string/bottomMenu_stretchDescription"
+                        android:src="@drawable/bottommenu_stretch" />
 
-                <ImageView
-                    android:id="@+id/tool_digButton"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:contentDescription="@string/bottomMenu_digDescription"
-                    android:src="@drawable/bottommenu_dig" />
+                    <ImageView
+                        android:id="@+id/tool_inflateButton"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:contentDescription="@string/bottomMenu_inflateDescription"
+                        android:src="@drawable/bottommenu_inflate" />
 
-                <ImageView
-                    android:id="@+id/tool_scisorsButton"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:contentDescription="@string/bottomMenu_scisorsDescription"
-                    android:src="@drawable/bottommenu_scisors" />
-            </LinearLayout>
+                    <ImageView
+                        android:id="@+id/tool_digButton"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:contentDescription="@string/bottomMenu_digDescription"
+                        android:src="@drawable/bottommenu_dig" />
+
+                    <ImageView
+                        android:id="@+id/tool_scisorsButton"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:contentDescription="@string/bottomMenu_scisorsDescription"
+                        android:src="@drawable/bottommenu_scisors" />
+                </LinearLayout>
+            </HorizontalScrollView>
         </LinearLayout>
     </RelativeLayout>
 

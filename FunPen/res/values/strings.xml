@@ -6,18 +6,18 @@
     <string name="hello_world">Hello world!</string>
     
     <string name="mainMenu_settingsButton_description">Settings button on main menu</string>
-    <string name="mainMenu_clickToDraw">Touchez pour commencer à dessiner</string>
-    <string name="mainMenu_gallery">GALLERIE</string>
-    <string name="mainMenu_account">MON COMPTE</string>
+    <string name="mainMenu_clickToDraw">Touch to start drawing</string>
+    <string name="mainMenu_gallery">GALLERY</string>
+    <string name="mainMenu_account">MY ACCOUNT</string>
     
     <string name="title_activity_account">AccountActivity</string>
     
     <string name="title_activity_login">LoginActivity</string>
     <string name="loginActivity_hintsPseudo">Pseudo</string>
-    <string name="loginActivity_hintsEmail">E-mail</string>
+    <string name="loginActivity_hintsEmail">Email</string>
     <string name="loginActivity_hintsPassword">Password</string>
     <string name="loginActivity_createNewAccountCheckbox">Create new account</string>
-    <string name="loginActivity_LoginButton">Register</string>
+    <string name="loginActivity_LoginButton">Login</string>
     
     <string name="bottomMenu_arrowDescription">Arrow to show open or close bottom menu</string>
     <string name="bottomMenu_colorscaleDescription">Use this tool to choose what color to use when drawing</string>

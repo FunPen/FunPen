@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class LoginActivity extends Activity {
 
@@ -14,6 +16,22 @@ public class LoginActivity extends Activity {
 	}
 	
 	public void onLoginClicked(View v) {
-		Log.i("FunPen", "Login clicked !");
+		Log.i("FunPen", "Login clicked");
+		String email = ((TextView) findViewById(R.id.field_email)).getText().toString();
+		String password = ((TextView) findViewById(R.id.field_password)).getText().toString();
+		
+		// TODO Send server the authentification request
+	}
+	
+	public void onGetPasswordClicked(View v) {
+		Log.i("FunPen", "GetPassword clicked");
+		String email = ((TextView) findViewById(R.id.field_email)).getText().toString();
+		if (email.isEmpty()) {
+			Toast.makeText(getApplicationContext(), "Please fill the blank with a valid email", Toast.LENGTH_SHORT).show();
+		}else {
+			Log.i("FunPen", "Email is : " + email);
+			// TODO Send server the email request
+			Toast.makeText(getApplicationContext(), "Please check your email to get the password", Toast.LENGTH_SHORT).show();
+		}
 	}
 }

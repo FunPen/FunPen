@@ -68,7 +68,7 @@ public class MainActivity extends Activity implements View.OnTouchListener {
 		
 		if (oldFingerY == -1) oldFingerY = Y;
 
-		if (v == findViewById(R.id.bottomMenu_arrow)) {
+		if (v == findViewById(R.id.drawView_arrowWrapper)) {
 			animateBottomMenu(v, event, Y);
 		}
 
