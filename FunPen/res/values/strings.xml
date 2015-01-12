@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">FunPen</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    
+    <string name="mainMenu_settingsButton_description">Settings button on main menu</string>
+    <string name="mainMenu_clickToDraw">Touchez pour commencer à dessiner</string>
+    <string name="mainMenu_gallery">GALLERIE</string>
+    <string name="mainMenu_account">MON COMPTE</string>
+    
+    <string name="title_activity_account">AccountActivity</string>
+    
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="loginActivity_hintsPseudo">Pseudo</string>
+    <string name="loginActivity_hintsEmail">E-mail</string>
+    <string name="loginActivity_hintsPassword">Password</string>
+    <string name="loginActivity_createNewAccountCheckbox">Create new account</string>
+    <string name="loginActivity_LoginButton">Register</string>
+    
+    <string name="bottomMenu_arrowDescription">Arrow to show open or close bottom menu</string>
+    <string name="bottomMenu_colorscaleDescription">Use this tool to choose what color to use when drawing</string>
+    <string name="bottomMenu_stretchDescription">With this tool you can stretch</string>
+    <string name="bottomMenu_inflateDescription">With this tool you can inflate</string>
+    <string name="bottomMenu_digDescription">With this tool you can dig</string>
+    <string name="bottomMenu_scisorsDescription">With this tool you can cut</string>
+    
+    <string name="drawView_flashButton_description">Tap this button to toggle the flash light</string>
+    <string name="loginActivity_GetPasswordButton">Get Password</string>
+    
+</resources>

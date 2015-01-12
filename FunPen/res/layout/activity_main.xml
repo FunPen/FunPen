@@ -1,0 +1,158 @@
+<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mainMenu_mainLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity" >
+
+    <fr.funpen.customViews.CameraView
+        android:id="@+id/cameraView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+
+    <RelativeLayout
+        android:id="@+id/drawView_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <ImageView
+            android:id="@+id/flashButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="@dimen/mainMenu_Settings_margin"
+            android:layout_marginStart="@dimen/mainMenu_Settings_margin"
+            android:layout_marginTop="@dimen/mainMenu_Settings_margin"
+            android:contentDescription="@string/drawView_flashButton_description"
+            android:onClick="onFlashClick"
+            android:src="@drawable/flashicon_off" />
+
+        <LinearLayout
+            android:id="@+id/drawView_bottomMenu"
+            android:layout_width="fill_parent"
+            android:layout_height="100dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="-80dp"
+            android:background="#99000000"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:id="@+id/drawView_arrowWrapper"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:gravity="center_horizontal" >
+
+                <ImageView
+                    android:id="@+id/bottomMenu_arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/bottomMenu_arrowDescription"
+                    android:rotation="180"
+                    android:src="@drawable/bottommenu_arrow" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/bottomMenu_toolsLayout"
+                android:layout_width="fill_parent"
+                android:layout_height="80dp"
+                android:orientation="horizontal"
+                android:scrollbarSize="1dp"
+                android:scrollbarStyle="insideInset" >
+
+                <ImageView
+                    android:id="@+id/tool_colorscaleButton"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:contentDescription="@string/bottomMenu_colorscaleDescription"
+                    android:src="@drawable/bottommenu_colorscale" />
+
+                <ImageView
+                    android:id="@+id/tool_stretchButton"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:contentDescription="@string/bottomMenu_stretchDescription"
+                    android:src="@drawable/bottommenu_stretch" />
+
+                <ImageView
+                    android:id="@+id/tool_inflateButton"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:contentDescription="@string/bottomMenu_inflateDescription"
+                    android:src="@drawable/bottommenu_inflate" />
+
+                <ImageView
+                    android:id="@+id/tool_digButton"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:contentDescription="@string/bottomMenu_digDescription"
+                    android:src="@drawable/bottommenu_dig" />
+
+                <ImageView
+                    android:id="@+id/tool_scisorsButton"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:contentDescription="@string/bottomMenu_scisorsDescription"
+                    android:src="@drawable/bottommenu_scisors" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/mainMenu_backgroundLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#99000000"
+        android:clickable="true"
+        android:onClick="onBackgroundClicked"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/mainMenu_settingsButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/mainMenu_Settings_margin"
+            android:layout_marginStart="@dimen/mainMenu_Settings_margin"
+            android:layout_marginTop="@dimen/mainMenu_Settings_margin"
+            android:contentDescription="@string/mainMenu_settingsButton_description"
+            android:onClick="onSettingsClicked"
+            android:src="@drawable/icon_settings" />
+
+        <TextView
+            android:id="@+id/mainMenu_touchToStart"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.90"
+            android:clickable="false"
+            android:gravity="center_vertical|center_horizontal"
+            android:onClick="onBackgroundClicked"
+            android:text="@string/mainMenu_clickToDraw"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#ffffff" />
+
+        <TextView
+            android:id="@+id/mainMenu_gallerieButton"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.33"
+            android:background="@drawable/mainmenu_buttonoverlay"
+            android:clickable="true"
+            android:gravity="center_vertical|center_horizontal"
+            android:onClick="onGalleryClicked"
+            android:text="@string/mainMenu_gallery"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#ffffff" />
+
+        <TextView
+            android:id="@+id/mainMenu_accountButton"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.33"
+            android:background="@drawable/mainmenu_buttonoverlay"
+            android:clickable="true"
+            android:gravity="center_vertical|center_horizontal"
+            android:onClick="onAccountClicked"
+            android:text="@string/mainMenu_account"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#ffffff" />
+    </LinearLayout>
+
+</RelativeLayout>
