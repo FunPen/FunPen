@@ -40,14 +40,6 @@
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" >
         </activity>
-        <activity
-            android:name=".GalleryActivity"
-            android:label="@string/title_activity_gallery" >
-        </activity>
-        <activity
-            android:name=".FriendListActivity"
-            android:label="@string/title_activity_friend_list" >
-        </activity>
     </application>
 
 </manifest>
