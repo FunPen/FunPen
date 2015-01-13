@@ -189,7 +189,7 @@ public class MainActivity extends Activity implements View.OnTouchListener {
 	}
 
 	public void onGalleryClicked(View v) {
-		Log.i("FunPen", "Gallerie clicked");
+		Log.i("FunPen", "Gallery clicked");
 		Intent galleryActivity = new Intent(this, GalleryActivity.class);
 		ActivityOptions opts = ActivityOptions.makeCustomAnimation(funPenApp, R.anim.slide_from_right, R.anim.nothing);
 		startActivity(galleryActivity, opts.toBundle()); // TODO gallery activity

@@ -1,6 +1,8 @@
 package fr.funpen.activities;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -13,6 +15,7 @@ public class LoginActivity extends Activity {
 
 	private final int MILLISECONDS = 30000;
 	private final int COUNTDOWN_INTERVAL = 1000;
+	public static boolean isLogged = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +33,10 @@ public class LoginActivity extends Activity {
 		}else {
 			// TODO Send server the authentification request
 			// For now, accept anything
-			
+			isLogged = true;
+			Toast.makeText(getApplicationContext(), "You are now logged", Toast.LENGTH_SHORT).show();
+			this.finish();
+			this.overridePendingTransition(R.anim.nothing ,R.anim.slide_to_right);
 		}
 	}
 
@@ -44,18 +50,23 @@ public class LoginActivity extends Activity {
 			Toast.makeText(getApplicationContext(), "Please check your email to get the password", Toast.LENGTH_SHORT).show();
 		}
 	}
+	
+	public void onBackPressed() {
+		super.onBackPressed();
+		this.overridePendingTransition(R.anim.nothing ,R.anim.slide_to_right);
+	}
 
 	private void changePasswordButtonTextOverTimer() {
 		final Button getPasswordButton = ((Button) findViewById(R.id.button_password));
 		final String initialText = getPasswordButton.getText().toString();
 
-		new CountDownTimer(MILLISECONDS, COUNTDOWN_INTERVAL) {       
-			public void onTick(long millisUntilFinished) {   
+		new CountDownTimer(MILLISECONDS, COUNTDOWN_INTERVAL) {
+			public void onTick(long millisUntilFinished) {
 				getPasswordButton.setEnabled(false);
-				getPasswordButton.setText(initialText + " (" + (millisUntilFinished / 1000) + ")");      
+				getPasswordButton.setText(initialText + " (" + (millisUntilFinished / 1000) + ")");
 			}       
 
-			public void onFinish() {         
+			public void onFinish() {
 				getPasswordButton.setText(initialText);
 				getPasswordButton.setEnabled(true);
 			}   
