@@ -208,6 +208,9 @@ public class MainActivity extends Activity implements View.OnTouchListener {
 
 	public void onSettingsClicked(View v) {
 		Log.i("FunPen", "Settings clicked");
+		Intent testActivity = new Intent(this, TestActivity.class);
+		ActivityOptions opts = ActivityOptions.makeCustomAnimation(funPenApp, R.anim.slide_from_right, R.anim.nothing);
+		startActivity(testActivity, opts.toBundle());
 	}
 
 	public void onBackgroundClicked(View v) {

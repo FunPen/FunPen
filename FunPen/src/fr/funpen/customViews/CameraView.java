@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.hardware.Camera;
 import android.hardware.Camera.Parameters;
 import android.util.AttributeSet;
@@ -55,6 +56,10 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
 		p.setFlashMode(Parameters.FLASH_MODE_OFF);
 		mCamera.setParameters(p);
 	}
+	
+//	public Bitmap getScreenshot() {
+//		mCamera.
+//	}
 
 	@Override
 	public void surfaceCreated(SurfaceHolder surfaceHolder) {
