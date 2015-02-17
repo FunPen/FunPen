@@ -1,5 +1,6 @@
 package fr.funpen.activities;
 
+import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
@@ -9,7 +10,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,7 +23,7 @@ import java.util.Set;
 import java.util.UUID;
 
 
-public class Bluetooth extends ActionBarActivity {
+public class Bluetooth extends Activity {
 
     private BroadcastReceiver mReceiver;
     private BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -46,7 +46,6 @@ public class Bluetooth extends ActionBarActivity {
             // Device does not support Bluetooth
             Log.i("Debug", "no bluetooth");
         }
-
         if (!mBluetoothAdapter.isEnabled()) {
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
