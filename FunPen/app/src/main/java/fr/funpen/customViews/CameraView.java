@@ -58,7 +58,13 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
 	}
 	
 //	public Bitmap getScreenshot() {
-//		mCamera.
+//		mCamera.setPreviewCallback(new Camera.PreviewCallback() {
+//			
+//			@Override
+//			public void onPreviewFrame(byte[] data, Camera camera) {
+//				
+//			}
+//		});
 //	}
 
 	@Override

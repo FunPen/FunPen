@@ -16,10 +16,10 @@
         android:layout_height="match_parent"
         android:scaleType="centerCrop" />
     
-    <SeekBar
-        android:id="@+id/testSeekBar"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:max="25" />
+<!--     <SeekBar -->
+<!--         android:id="@+id/testSeekBar" -->
+<!--         android:layout_width="fill_parent" -->
+<!--         android:layout_height="wrap_content" -->
+<!--         android:max="25" /> -->
 
 </RelativeLayout>
