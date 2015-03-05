@@ -9,38 +9,36 @@ import android.view.Menu;
 
 public class AccountActivity extends Activity {
 
-	private FunPenApp funPenApp;
+    private FunPenApp funPenApp;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_account);
-		Log.i("FunPen", "[Account] Building");
-		funPenApp = (FunPenApp)this.getApplicationContext();
-	}
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_account);
+        Log.i("FunPen", "[Account] Building");
+        funPenApp = (FunPenApp)this.getApplicationContext();
+    }
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.account, menu);
-		return true;
-	}
-	
-	
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.account, menu);
+        return true;
+    }
 
-	@Override
-	public void onBackPressed() {
-		finish();
-		this.overridePendingTransition(R.anim.nothing, R.anim.slide_to_right);
-	}
+    @Override
+    public void onBackPressed() {
+        finish();
+        this.overridePendingTransition(R.anim.nothing, R.anim.slide_to_right);
+    }
 
-	@Override
-	protected void onResume() {
-		funPenApp.setCurrentActivity(this);
-		super.onResume();
-	}
+    @Override
+    protected void onResume() {
+        funPenApp.setCurrentActivity(this);
+        super.onResume();
+    }
 
-	@Override
-	protected void onPause() {
-		super.onPause();
-	}
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
 }
