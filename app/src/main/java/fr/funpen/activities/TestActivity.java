@@ -31,13 +31,13 @@ public class TestActivity extends Activity implements OnSeekBarChangeListener {
 		setContentView(R.layout.activity_test);
 		
 		_imageView = (ImageView) findViewById(R.id.testImage);
-		CameraView.getCameraInstance().setPreviewCallback(new Camera.PreviewCallback() {
-			
-			@Override
-			public void onPreviewFrame(byte[] data, Camera camera) {
-				Log.i("FunPen", "Preview update");
-			}
-		});
+//		CameraView.getSocketCameraInstance().setPreviewCallback(new Camera.PreviewCallback() {
+//
+//			@Override
+//			public void onPreviewFrame(byte[] data, Camera camera) {
+//				Log.i("FunPen", "Preview update");
+//			}
+//		});
 //	    _seekbar = (SeekBar) findViewById(R.id.testSeekBar);
 //	    _seekbar.setOnSeekBarChangeListener(this);
 	}

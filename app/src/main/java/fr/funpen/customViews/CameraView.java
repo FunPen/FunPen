@@ -16,7 +16,7 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
 
 	private SurfaceHolder mHolder;
 	private Camera mCamera;
-	
+
 	public CameraView() {
 		super(null);
 	}
@@ -48,13 +48,13 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
 	public void turnOnFlashLight() {
 		Parameters p = mCamera.getParameters();
 		p.setFlashMode(Parameters.FLASH_MODE_TORCH);
-		mCamera.setParameters(p);
+        mCamera.setParameters(p);
 	}
 	
 	public void turnOffFlashLight() {
 		Parameters p = mCamera.getParameters();
 		p.setFlashMode(Parameters.FLASH_MODE_OFF);
-		mCamera.setParameters(p);
+        mCamera.setParameters(p);
 	}
 	
 //	public Bitmap getScreenshot() {
@@ -70,9 +70,9 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
 	@Override
 	public void surfaceCreated(SurfaceHolder surfaceHolder) {
 		try {
-			mCamera.setPreviewDisplay(surfaceHolder);
-			mCamera.setDisplayOrientation(90);
-			mCamera.startPreview();
+            mCamera.setPreviewDisplay(surfaceHolder);
+            mCamera.setDisplayOrientation(90);
+            mCamera.startPreview();
 		} catch (IOException e) {
 			Log.d("CameraView", "Error setting camera preview: " + e.getMessage());
 		}
@@ -86,13 +86,13 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
 		}
 
 		try {
-			mCamera.stopPreview();
+            mCamera.stopPreview();
 		} catch (Exception e){
 
 		}
 		try {
-			mCamera.setPreviewDisplay(mHolder);
-			mCamera.startPreview();
+            mCamera.setPreviewDisplay(mHolder);
+            mCamera.startPreview();
 
 		} catch (Exception e){
 			Log.d("FunPen", "Error starting camera preview: " + e.getMessage());
@@ -101,7 +101,7 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
 
 	@Override
 	public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
-		mCamera.stopPreview();
+        mCamera.stopPreview();
 		Log.i("FunPen", "Camera released");
 	}
 
@@ -112,11 +112,11 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
 	public static Camera getCameraInstance(){
 		Camera c = null;
 		try {
-			c = Camera.open();
+            Log.i("FunPen", "Number of camera : " + Camera.getNumberOfCameras());
+            c = Camera.open();
 		}
 		catch (Exception e){
 		}
 		return c;
 	}
-
 }
