@@ -1,8 +1,8 @@
-package fr.funpen.user;
+package fr.funpen.dto;
 
 import android.media.Image;
 
-public class User {
+public class UserDto {
 	
 	private String 			pseudo;
 	private String 			address;
@@ -11,16 +11,16 @@ public class User {
 	
 	private boolean 		logged = false;
 	
-	private static User 	instance = null;;
+	private static UserDto instance = null;;
 	
 	
-	private User() {
+	private UserDto() {
 		
 	}
 	
-	public static User getInstance() {
+	public static UserDto getInstance() {
 		if (instance == null)
-			instance = new User();
+			instance = new UserDto();
 		return instance;
 	}
 	

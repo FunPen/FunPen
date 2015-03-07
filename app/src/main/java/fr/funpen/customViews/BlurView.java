@@ -35,9 +35,8 @@ public class BlurView extends View {
     }
 
     @Override
-    public void onDraw(Canvas canvas)
-    {
-    	canvas.drawRect(background, paint);
+    public void onDraw(Canvas canvas) {
+        canvas.drawRect(background, paint);
     }
 
 }

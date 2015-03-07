@@ -18,18 +18,19 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import fr.funpen.customViews.CameraView;
-import fr.funpen.user.User;
+import fr.funpen.dto.UserDto;
 import fr.stevecohen.eventBus.EventBus;
 
 public class MainActivity extends Activity implements View.OnTouchListener {
 
 	protected FunPenApp 	funPenApp;
 	private State			state;
-	private User			user;
+	private UserDto user;
 	private EventBus		eventBus;
 
 	/* Bottom Menu*/
 	private float		 	oldFingerY;
+    private float           oldFingerX;
 	private boolean			bottomMenuAnimating;
 	private boolean			bottomMenuOpened;
 
@@ -40,9 +41,10 @@ public class MainActivity extends Activity implements View.OnTouchListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		state = State.MAIN_MENU;
-		user = User.getInstance();
+		user = UserDto.getInstance();
 		eventBus = EventBus.getEventBus();
 		oldFingerY = -1;
+        oldFingerY = -1;
 		bottomMenuAnimating = false;
 		bottomMenuOpened = false;
 		isLightTurnedOn = false;
@@ -65,13 +67,22 @@ public class MainActivity extends Activity implements View.OnTouchListener {
 		final int X = (int) event.getX();
 		final int Y = (int) event.getY();
 		
-		if (oldFingerY == -1) oldFingerY = Y;
+		if (oldFingerY == -1) {
+            oldFingerY = Y;
+            return true;
+        }
+        if (oldFingerX == -1) {
+            oldFingerX = X;
+            return true;
+        }
 
 		if (v == findViewById(R.id.drawView_arrowWrapper)) {
-			animateBottomMenu(v, event, Y);
+            if (Math.abs(X - oldFingerX) < 5 && Math.abs(Y - oldFingerY) > 10)
+    			animateBottomMenu(v, event, Y);
 		}
 
 		oldFingerY = Y;
+        oldFingerX = X;
 		return true;
 	}
 

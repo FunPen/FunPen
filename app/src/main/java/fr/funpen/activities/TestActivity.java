@@ -22,7 +22,7 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 public class TestActivity extends Activity implements OnSeekBarChangeListener {
 
 	private ImageView 		_imageView;
-//	private SeekBar			_seekbar;
+	private SeekBar			_seekbar;
 	private ProgressDialog 	pd;
 	
 	@Override
@@ -31,15 +31,9 @@ public class TestActivity extends Activity implements OnSeekBarChangeListener {
 		setContentView(R.layout.activity_test);
 		
 		_imageView = (ImageView) findViewById(R.id.testImage);
-//		CameraView.getSocketCameraInstance().setPreviewCallback(new Camera.PreviewCallback() {
-//
-//			@Override
-//			public void onPreviewFrame(byte[] data, Camera camera) {
-//				Log.i("FunPen", "Preview update");
-//			}
-//		});
-//	    _seekbar = (SeekBar) findViewById(R.id.testSeekBar);
-//	    _seekbar.setOnSeekBarChangeListener(this);
+        _imageView.setImageResource(R.drawable.blur_test);
+        _seekbar = (SeekBar) findViewById(R.id.testSeekBar);
+        _seekbar.setOnSeekBarChangeListener(this);
 	}
 	
 	@Override
@@ -60,8 +54,8 @@ public class TestActivity extends Activity implements OnSeekBarChangeListener {
 	    }
 	}
 	
-	private void displayBlurredImage (final int radius) {
-//	    _seekbar.setEnabled(false);
+	private void displayBlurredImage(final int radius) {
+	    _seekbar.setEnabled(false);
 	    AsyncTask<Void, Void, Bitmap> task = new AsyncTask<Void, Void, Bitmap>() {
 			
 			@Override
@@ -84,7 +78,7 @@ public class TestActivity extends Activity implements OnSeekBarChangeListener {
 			protected void onPostExecute(Bitmap result) {
 				if (pd != null) {
 					pd.dismiss();
-//					_seekbar.setEnabled(true);
+					_seekbar.setEnabled(true);
 				}
 				_imageView.setImageBitmap(result);
 			}
