@@ -1,130 +1,116 @@
 package fr.stevecohen.eventBus;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
+/**
+ * @author Steve Cohen
+ */
 public class EventBus {
 
-	private static EventBus instance = null;
-	private Map<String, List<Callback>> watchers = new HashMap<>();
+    private boolean	isDispatching = false;
+    private static EventBus instance = null;
+    private Map<String, List<EventCallback>> watchers = new HashMap<>();
 
-	/**
-	 * Call the EventBus singleton instance
-	 * 
-	 * @return EventBus
-	 * @author Steve Cohen
-	 */
-	public static EventBus getEventBus() {
-		if (instance == null) {
-			instance = new EventBus();
-		}
-		return instance;
-	}
+    private Map<String, List<EventCallback>> watchersToAddSafely = new HashMap<>();
 
-	/**
-	 * @param events		The name of events you want to listen separed by ";"
-	 * @param callback	The function witch will be called when event is fired
-	 * @return CallbackSettings Array associated to all the events. You can use this CallbackSettings to interact with the callback
-	 * 
-	 * @see EventBus.Callback
-	 * @see EventBus.CallbackSettings for more informations about Callback interactions
-	 */
-	public CallbackSettings[] on(String events, final Callback callback) {
-		final String[] eventsArray = events.split(";");
-		int nbrEvents = eventsArray.length;
-		synchronized (watchers) {
-			for (String eventName : eventsArray) {
-				if (!watchers.containsKey(eventName)) {
-					watchers.put(eventName, new ArrayList<EventBus.Callback>());
-				}
-				watchers.get(eventName).add(callback);
-			}
-		}
+    /**
+     * Call the EventBus singleton instance
+     *
+     * @return EventBus
+     */
+    public static EventBus getEventBus() {
+        if (instance == null) {
+            instance = new EventBus();
+        }
+        return instance;
+    }
 
-		CallbackSettings[] multipleCallbackSettings = new CallbackSettings[nbrEvents];
-		for (int i = 0; i < nbrEvents; i++) {
-			final int index = i;
-			multipleCallbackSettings[i] = new CallbackSettings() {
+    /**
+     * @param events		The name of events you want to listen separated by ";"
+     * @param eventCallback	The function witch will be called when event is fired
+     *
+     * @see EventBus.EventCallback
+     */
+    public void on(String events, final EventCallback eventCallback) {
+        final String[] eventsArray = events.split(";");
+        if (isDispatching == true) {
+            for (String eventName : eventsArray) {
+                if (!watchersToAddSafely.containsKey(eventName)) {
+                    watchersToAddSafely.put(eventName, new ArrayList<EventCallback>());
+                }
+                watchersToAddSafely.get(eventName).add(eventCallback);
+            }
+        }else {
+            for (String eventName : eventsArray) {
+                if (!watchers.containsKey(eventName)) {
+                    watchers.put(eventName, new ArrayList<EventCallback>());
+                }
+                watchers.get(eventName).add(eventCallback);
+            }
+        }
+    }
 
-				@Override
-				public void start() {
-					synchronized (watchers) {
-						watchers.get(eventsArray[index]).add(callback);
-					}
-				}
+    /**
+     *
+     * @param event		The event you want to dispatch
+     * @param arg		An optional argument you can send to the listener callback
+     * @return			True if the event have one or more listener
+     */
+    public boolean dispatch(String event, Object arg) {
+        isDispatching = true;
+        if (watchers.containsKey(event)) {
+            Iterator<EventCallback> it = watchers.get(event).iterator();
+            List<EventCallback> toDelete = new ArrayList<>();
+            while (it.hasNext()) {
+                try {
+                    EventCallback ec = it.next();
+                    if (ec.delete)
+                        toDelete.add(ec);
+                    else {
+                        ec.call(arg);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            for (EventCallback callbackToDelete : toDelete)
+                watchers.get(event).remove(callbackToDelete);
+            isDispatching = false;
+            updateTmpWatchers();
+            return true;
+        }
+        isDispatching = false;
+        updateTmpWatchers();
+        return false;
+    }
 
-				@Override
-				public void remove() {
-					synchronized (watchers) {
-						watchers.get(eventsArray[index]).remove(callback);
-					}
-				}
+    private void updateTmpWatchers() {
+        for (Entry<String, List<EventCallback>> entry : watchersToAddSafely.entrySet()) {
+            if (!watchers.containsKey(entry.getKey()))
+                watchers.put(entry.getKey(), entry.getValue());
+            else
+                watchers.get(entry.getKey()).addAll(entry.getValue());
+        }
+        watchersToAddSafely.clear();
+    }
 
-				@Override
-				public void pause() {
-					synchronized (watchers) {
-						watchers.get(eventsArray[index]).remove(callback);
-					}
-				}
-			};
-		}
-		return multipleCallbackSettings;
-	}
+    /**
+     * Callback class used for EventBus
+     * @author Steve Cohen
+     *
+     */
+    public static abstract class EventCallback {
+        private boolean delete = false;
+        public abstract void call(Object argument);
 
-	/**
-	 * 
-	 * @param event		The event you want to dispatch
-	 * @param arg		An optional argument you can send to the listener callback
-	 * @return			True if the event have one or more listener
-	 */
-	public boolean dispatch(String event, String arg) {
-		synchronized (watchers.get(event)) {
-			if (watchers.containsKey(event)) {
-				Iterator<Callback> it = watchers.get(event).iterator();
-				while (it.hasNext()) {
-					try {
-						it.next().call(arg);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-				return true;
-			}
-			return false;
-		}
-	}
-
-	/**
-	 * Callback class used for EventBus
-	 * @author Steve Cohen
-	 *
-	 */
-	public interface Callback {
-		public void call(String argument);
-	}
-
-	/**
-	 * CallbackSettings give you some "commands" to interact with your callback. You are somes functions you can call simply.
-	 * @author Steve
-	 *
-	 */
-	public interface CallbackSettings {
-		/**
-		 * To remove your listener
-		 */
-		public void remove();
-
-		/**
-		 * To stop to listen your event temporaly
-		 */
-		public void pause();
-
-		/**
-		 * To start listen again (when pause the listener)
-		 */
-		public void start();
-	}
+        public void destroyCallback() {
+            this.delete = true;
+        }
+    }
 }

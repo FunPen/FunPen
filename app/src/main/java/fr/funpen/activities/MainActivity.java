@@ -20,7 +20,6 @@ import android.widget.RelativeLayout;
 import fr.funpen.customViews.CameraView;
 import fr.funpen.user.User;
 import fr.stevecohen.eventBus.EventBus;
-import fr.stevecohen.eventBus.EventBus.Callback;
 
 public class MainActivity extends Activity implements View.OnTouchListener {
 
@@ -126,10 +125,10 @@ public class MainActivity extends Activity implements View.OnTouchListener {
 	}
 
 	public void initStateEvents() {
-		eventBus.on("StateChange", new Callback() {
+		eventBus.on("StateChange", new EventBus.EventCallback() {
 
 			@Override
-			public void call(String newState) {
+			public void call(Object newState) {
 				Log.i("FunPen", "State change, starting animation");
 				final LinearLayout mainMenu = (LinearLayout) findViewById(R.id.mainMenu_backgroundLayout);
 				final RelativeLayout drawViewLayout = (RelativeLayout) findViewById(R.id.drawView_layout);
