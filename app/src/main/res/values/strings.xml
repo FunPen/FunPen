@@ -24,5 +24,7 @@
     <string name="drawView_flashButton_description">Tap this button to toggle the flash light</string>
     <string name="loginActivity_GetPasswordButton">Get Password</string>
     <string name="title_activity_test">TestActivity</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_gallery">GalleryActivity</string>
 
 </resources>
