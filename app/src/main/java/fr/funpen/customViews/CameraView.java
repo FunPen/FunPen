@@ -1,16 +1,15 @@
 package fr.funpen.customViews;
 
-import java.io.IOException;
-
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.hardware.Camera;
 import android.hardware.Camera.Parameters;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+
+import java.io.IOException;
 
 public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
 
@@ -36,14 +35,16 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
 	@SuppressWarnings("deprecation")
 	public CameraView(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		if(checkCameraHardware(context))  {
-			mCamera = getCameraInstance();
-			mHolder = getHolder();
-			mHolder.addCallback(this);
-			mHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-			this.setKeepScreenOn(true);
-		}
-	}
+        if (!isInEditMode()) {
+            if (checkCameraHardware(context)) {
+                mCamera = getCameraInstance();
+                mHolder = getHolder();
+                mHolder.addCallback(this);
+                mHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+                this.setKeepScreenOn(true);
+            }
+        }
+    }
 	
 	public void turnOnFlashLight() {
 		Parameters p = mCamera.getParameters();

@@ -37,6 +37,11 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".DrawActivity"
+            android:label="@string/title_activity_draw"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"></activity>
+        <activity
             android:name=".AccountActivity"
             android:label="@string/title_activity_account" >
         </activity>
