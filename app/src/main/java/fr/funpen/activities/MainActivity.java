@@ -40,12 +40,12 @@ public class MainActivity extends Activity {
     }
 
 	public void onAccountClicked(View v) {
-		Log.i("FunPen", "Account clicked");
-		Intent accountActivity = new Intent(this, AccountActivity.class);
+		Log.i("FunPen", "Community clicked");
+		Intent communityActivity = new Intent(this, CommunityActivity.class);
 		Intent loginActivity = new Intent(this, LoginActivity.class);
 		ActivityOptions opts = ActivityOptions.makeCustomAnimation(funPenApp, R.anim.slide_from_right, R.anim.nothing);
 		if (user.isLogged())
-			startActivity(accountActivity, opts.toBundle());
+			startActivity(communityActivity, opts.toBundle());
 		else
 			startActivity(loginActivity, opts.toBundle());
 	}

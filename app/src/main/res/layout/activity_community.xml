@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/communityMenu_backgroundLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#99000000"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="90dp">
+
+            <FrameLayout
+                android:layout_width="100dp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="right">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Pseudonyme"
+                    android:id="@+id/textView" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="adresse@mail.com"
+                    android:id="@+id/textView2" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <SearchView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/searchView" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

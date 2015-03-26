@@ -16,17 +16,6 @@
         android:onClick="onBackgroundClicked"
         android:orientation="vertical" >
 
-        <ImageView
-            android:id="@+id/mainMenu_settingsButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/mainMenu_Settings_margin"
-            android:layout_marginStart="@dimen/mainMenu_Settings_margin"
-            android:layout_marginTop="@dimen/mainMenu_Settings_margin"
-            android:contentDescription="@string/mainMenu_settingsButton_description"
-            android:onClick="onSettingsClicked"
-            android:src="@drawable/icon_settings" />
-
         <TextView
             android:id="@+id/mainMenu_touchToStart"
             android:layout_width="fill_parent"
