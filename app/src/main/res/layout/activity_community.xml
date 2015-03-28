@@ -14,7 +14,8 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="90dp">
+            android:layout_height="90dp"
+            android:onClick="onProfileClicked">
 
             <FrameLayout
                 android:layout_width="100dp"
@@ -23,7 +24,8 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/imageView" />
+                    android:id="@+id/imageView"
+                    android:src="@drawable/android_avatar"/>
             </FrameLayout>
 
             <LinearLayout
@@ -56,18 +58,54 @@
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="fill_parent">
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"/>
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/horizontalScrollView"
+                android:layout_gravity="center_horizontal" >
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"/>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <FrameLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent">
+
+                        <ImageButton
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/imageButton"
+                            android:src="@drawable/news"/>
+                    </FrameLayout>
+                    <FrameLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent">
+
+                        <ImageButton
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/imageButton2"
+                            android:src="@drawable/news"/>
+                    </FrameLayout>
+                    <FrameLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent">
+
+                        <ImageButton
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/imageButton3"
+                            android:src="@drawable/news"/>
+                    </FrameLayout>
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
         </LinearLayout>
     </LinearLayout>
 
