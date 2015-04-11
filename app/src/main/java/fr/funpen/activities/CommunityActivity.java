@@ -26,4 +26,10 @@ public class CommunityActivity extends Activity{
         Intent accountActivity = new Intent(this, AccountActivity.class);
         startActivity(accountActivity);
     }
+
+    public void onSearchClicked(View v) {
+        Log.i("FunPen", "Profile clicked");
+        Intent friendListActivity = new Intent(this, FriendListActivity.class);
+        startActivity(friendListActivity);
+    }
 }

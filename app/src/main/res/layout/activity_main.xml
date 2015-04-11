@@ -49,7 +49,7 @@
             android:background="@drawable/mainmenu_buttonoverlay"
             android:clickable="true"
             android:gravity="center_vertical|center_horizontal"
-            android:onClick="onAccountClicked"
+            android:onClick="onCommunityClicked"
             android:text="@string/mainMenu_account"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#ffffff" />

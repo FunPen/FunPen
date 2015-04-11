@@ -8,8 +8,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:background="#21262B"
-        android:orientation="vertical"
-        android:weightSum="1">
+        android:orientation="vertical">
 
         <LinearLayout
             android:orientation="horizontal"
@@ -60,27 +59,30 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:background="#767B81"
-            android:id="@+id/searchView" />
+            android:id="@+id/searchView"
+            android:onClick="onSearchClicked"/>
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
 
-            <HorizontalScrollView
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/horizontalScrollView"
-                android:layout_gravity="center_horizontal" >
+                android:layout_height="wrap_content"
+                android:id="@+id/ScrollView"
+                android:layout_gravity="center_horizontal"
+                android:fillViewport="true"
+                android:fadingEdge="none">
 
                 <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent">
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
                     <FrameLayout
                         android:layout_width="fill_parent"
-                        android:layout_height="fill_parent">
+                        android:layout_height="wrap_content">
 
                         <ImageButton
                             android:layout_width="match_parent"
@@ -110,7 +112,7 @@
                     </FrameLayout>
                 </LinearLayout>
 
-            </HorizontalScrollView>
+            </ScrollView>
 
         </LinearLayout>
     </LinearLayout>

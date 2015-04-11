@@ -1,9 +1,12 @@
 package fr.funpen.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
 public class GalleryActivity extends Activity {
@@ -11,7 +14,7 @@ public class GalleryActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gallery2);
+        setContentView(R.layout.activity_gallery);
     }
 
 
@@ -35,6 +38,16 @@ public class GalleryActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onProfileClicked(View v) {
+        Log.i("FunPen", "Profile clicked");
+        Intent accountActivity = new Intent(this, AccountActivity.class);
+		/*if (user.isLogged())
+			startActivity(communityActivity, opts.toBundle());
+		else
+			startActivity(loginActivity, opts.toBundle());*/
+        startActivity(accountActivity);
     }
 }
 
