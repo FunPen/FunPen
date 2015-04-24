@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/communityMenu_backgroundLayout"
+        android:id="@+id/communityBackgroundLayout"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:background="#21262B"

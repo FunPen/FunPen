@@ -10,87 +10,25 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 
-        <SearchView
+        <android.inputmethodservice.ExtractEditText
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="#767B81"
-            android:id="@+id/searchView2" />
+            android:text="test"
+            android:textSize="30sp"
+            android:id="@+id/extractEditText" />
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
+        <Button
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:background="#21262B">
+            android:text="Add item"
+            android:id="@+id/button" />
 
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:id="@+id/imageView2"
-                android:src="@drawable/android_avatar"/>
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:textColor="#ffffff"
-                android:inputType="textPersonName"
-                android:text="Je suis un ami à toi"
-                android:ems="10"
-                android:id="@+id/editText" />
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:id="@+id/imageButton4"
-                android:src="@drawable/moins"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="left"
-                android:id="@+id/imageButton5"
-                android:src="@drawable/gallery_icon"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:background="#21262B">
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:id="@+id/imageView3"
-                android:src="@drawable/android_avatar"/>
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:textColor="#ffffff"
-                android:inputType="textPersonName"
-                android:text="Tu veut m'ajouter ?"
-                android:ems="10"
-                android:id="@+id/editText2" />
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:id="@+id/imageButton6"
-                android:src="@drawable/plus"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="left"
-                android:id="@+id/imageButton7"
-                android:src="@drawable/gallery_icon"/>
-        </LinearLayout>
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/listView"
+            android:layout_gravity="center_horizontal" />
     </LinearLayout>
 
 </RelativeLayout>

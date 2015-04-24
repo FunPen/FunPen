@@ -125,7 +125,7 @@ public class DrawActivity extends Activity implements View.OnTouchListener {
     }
 
     private void toggleFlashLight(boolean turnOn) {
-        CameraView camera = (CameraView) findViewById(R.id.cameraView);
+        /*CameraView camera = (CameraView) findViewById(R.id.cameraView);
         ImageView flashImg = (ImageView) findViewById(R.id.flashButton);
         if (!turnOn) {
             camera.turnOffFlashLight();
@@ -134,7 +134,7 @@ public class DrawActivity extends Activity implements View.OnTouchListener {
             flashImg.setImageResource(R.drawable.flashicon_on);
             camera.turnOnFlashLight();
         }
-        isLightTurnedOn = !isLightTurnedOn;
+        isLightTurnedOn = !isLightTurnedOn;*/
     }
 
     public void onFlashClick(View v) {

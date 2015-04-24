@@ -49,13 +49,13 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
 	public void turnOnFlashLight() {
 		Parameters p = mCamera.getParameters();
 		p.setFlashMode(Parameters.FLASH_MODE_TORCH);
-        mCamera.setParameters(p);
+        //mCamera.setParameters(p);
 	}
 	
 	public void turnOffFlashLight() {
 		Parameters p = mCamera.getParameters();
 		p.setFlashMode(Parameters.FLASH_MODE_OFF);
-        mCamera.setParameters(p);
+        //mCamera.setParameters(p);
 	}
 	
 //	public Bitmap getScreenshot() {
@@ -70,13 +70,13 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
 
 	@Override
 	public void surfaceCreated(SurfaceHolder surfaceHolder) {
-		try {
+		/*try {
             mCamera.setPreviewDisplay(surfaceHolder);
             mCamera.setDisplayOrientation(90);
             mCamera.startPreview();
 		} catch (IOException e) {
 			Log.d("CameraView", "Error setting camera preview: " + e.getMessage());
-		}
+		}*/
 	}
 
 	@Override
@@ -86,7 +86,7 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
 			return;
 		}
 
-		try {
+		/*try {
             mCamera.stopPreview();
 		} catch (Exception e){
 
@@ -97,12 +97,12 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
 
 		} catch (Exception e){
 			Log.d("FunPen", "Error starting camera preview: " + e.getMessage());
-		}
+		}*/
 	}
 
 	@Override
 	public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
-        mCamera.stopPreview();
+        //mCamera.stopPreview();
 		Log.i("FunPen", "Camera released");
 	}
 

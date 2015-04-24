@@ -36,7 +36,7 @@ public class MainActivity extends Activity {
 		Log.i("FunPen", "Gallery clicked");
 		Intent galleryActivity = new Intent(this, GalleryActivity.class);
 		ActivityOptions opts = ActivityOptions.makeCustomAnimation(funPenApp, R.anim.slide_from_right, R.anim.nothing);
-        startActivity(galleryActivity, opts.toBundle());
+        startActivity(galleryActivity);
     }
 
 	public void onCommunityClicked(View v) {
@@ -48,7 +48,7 @@ public class MainActivity extends Activity {
 			startActivity(communityActivity, opts.toBundle());
 		else
 			startActivity(loginActivity, opts.toBundle());*/
-        startActivity(communityActivity, opts.toBundle());
+        startActivity(communityActivity);
 	}
 
 	public void onSettingsClicked(View v) {
