@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "fr.funpen.activities"
-        minSdkVersion 17
+        minSdkVersion 16
         targetSdkVersion 20
         compileOptions {
             sourceCompatibility JavaVersion.VERSION_1_7
