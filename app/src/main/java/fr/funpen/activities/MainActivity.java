@@ -44,10 +44,12 @@ public class MainActivity extends Activity {
 		Intent communityActivity = new Intent(this, CommunityActivity.class);
 		Intent loginActivity = new Intent(this, LoginActivity.class);
 		ActivityOptions opts = ActivityOptions.makeCustomAnimation(funPenApp, R.anim.slide_from_right, R.anim.nothing);
-		/*if (user.isLogged())
+		/*
+		if (user.isLogged())
 			startActivity(communityActivity, opts.toBundle());
 		else
-			startActivity(loginActivity, opts.toBundle());*/
+			startActivity(loginActivity, opts.toBundle());
+		*/
         startActivity(communityActivity);
 	}
 
@@ -60,9 +62,10 @@ public class MainActivity extends Activity {
 
 	public void onBackgroundClicked(View v) {
         Log.i("FunPen", "Draw clicked");
-        /*Intent drawActivity = new Intent(this, DrawActivity.class);
-        ActivityOptions opts = ActivityOptions.makeCustomAnimation(funPenApp, R.anim.fade_out, R.anim.nothing);
-        startActivity(drawActivity, opts.toBundle());*/
+        Intent drawActivity = new Intent(this, DrawActivity.class);
+        //ActivityOptions opts = ActivityOptions.makeCustomAnimation(funPenApp, R.anim.fade_out, R.anim.nothing);
+        //startActivity(drawActivity, opts.toBundle());
+		startActivity(drawActivity);
     }
 
 	@Override

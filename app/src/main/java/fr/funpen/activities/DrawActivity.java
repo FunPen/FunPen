@@ -3,6 +3,11 @@ package fr.funpen.activities;
 import android.animation.Animator;
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -12,9 +17,10 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import fr.funpen.customViews.CameraView;
+import fr.funpen.renderers.MyGLRenderer;
 
 
-public class DrawActivity extends Activity implements View.OnTouchListener {
+public class DrawActivity extends Activity implements SensorEventListener {
 
     protected FunPenApp funPenApp;
 
@@ -26,6 +32,16 @@ public class DrawActivity extends Activity implements View.OnTouchListener {
 
     /* Flash */
     private boolean isLightTurnedOn;
+
+    // OpenGl
+    private MyGLRenderer myGLRenderer;
+    private GLSurfaceView glView;   // Use GLSurfaceView
+
+    private SensorManager mSensorManager;
+    private Sensor mRotationVectorSensor;
+
+    private float prevX = 0, prevY = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +55,21 @@ public class DrawActivity extends Activity implements View.OnTouchListener {
         isLightTurnedOn = false;
 
         final RelativeLayout drawViewArrowWrapper = (RelativeLayout) findViewById(R.id.drawView_arrowBarWrapper);
-        drawViewArrowWrapper.setOnTouchListener(this);
+        //drawViewArrowWrapper.setOnTouchListener(this);
         final RelativeLayout drawViewLayout = (RelativeLayout) findViewById(R.id.drawView_layout);
         drawViewLayout.setAlpha(1.0f);
         drawViewLayout.setVisibility(View.VISIBLE);
+
+        // OpenGL
+        glView = new GLSurfaceView(this);           // Allocate a GLSurfaceView
+        mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
+        mRotationVectorSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
+        myGLRenderer = new MyGLRenderer(this);
+        glView.setRenderer(myGLRenderer); // Use a custom renderer
+        this.setContentView(glView);                // This activity sets to GLSurfaceView
     }
 
+    /*
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         v.performClick();
@@ -69,6 +94,7 @@ public class DrawActivity extends Activity implements View.OnTouchListener {
         oldFingerX = X;
         return true;
     }
+    */
 
     private void animateBottomMenu(View v, MotionEvent event, int Y) {
         switch (event.getAction() & MotionEvent.ACTION_MASK) {
@@ -125,7 +151,8 @@ public class DrawActivity extends Activity implements View.OnTouchListener {
     }
 
     private void toggleFlashLight(boolean turnOn) {
-        /*CameraView camera = (CameraView) findViewById(R.id.cameraView);
+        /*
+        CameraView camera = (CameraView) findViewById(R.id.cameraView);
         ImageView flashImg = (ImageView) findViewById(R.id.flashButton);
         if (!turnOn) {
             camera.turnOffFlashLight();
@@ -134,7 +161,8 @@ public class DrawActivity extends Activity implements View.OnTouchListener {
             flashImg.setImageResource(R.drawable.flashicon_on);
             camera.turnOnFlashLight();
         }
-        isLightTurnedOn = !isLightTurnedOn;*/
+        isLightTurnedOn = !isLightTurnedOn;
+        */
     }
 
     public void onFlashClick(View v) {
@@ -142,9 +170,65 @@ public class DrawActivity extends Activity implements View.OnTouchListener {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        mSensorManager.unregisterListener(this);
+        glView.onPause();
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         funPenApp.setCurrentActivity(this);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
+
+        // OpenGl
+        mSensorManager.registerListener(this, mRotationVectorSensor, 10000);
+        glView.onResume();
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            prevX = event.getPointerCount() > 1 ? ((event.getX(0) + event.getX(1)) / 2) : event.getX();
+            prevY = event.getPointerCount() > 1 ? ((event.getY(0) + event.getY(1)) / 2) : event.getY();
+        }
+
+        if (event.getPointerCount() == 2 && event.getAction() == MotionEvent.ACTION_MOVE) {
+            float x = (event.getX(0) + event.getX(1)) / 2;
+            float y = (event.getY(0) + event.getY(1)) / 2;
+
+            myGLRenderer.getCube().setAngleY(myGLRenderer.getCube().getAngleY() - (prevX - x));
+            myGLRenderer.getCube().setAngleX(myGLRenderer.getCube().getAngleX() + (y - prevY));
+
+            prevX = x;
+            prevY = y;
+        }else if (event.getPointerCount() == 1 && event.getAction() == MotionEvent.ACTION_MOVE) {
+            float x = event.getX(0);
+            float y = event.getY(0);
+
+            myGLRenderer.getCube().setPosX(myGLRenderer.getCube().getPosX() + ((x - prevX) / (150)));
+            myGLRenderer.getCube().setPosY(myGLRenderer.getCube().getPosY() - ((y - prevY) / (150)));
+
+            prevX = x;
+            prevY = y;
+        }
+        return true;
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        // we received a sensor event. it is a good practice to check
+        // that we received the proper event
+        if (event.sensor.getType() == Sensor.TYPE_ROTATION_VECTOR) {
+            // convert the rotation-vector to a 4x4 matrix. the matrix
+            // is interpreted by Open GL as the inverse of the
+            // rotation-vector, which is what we want.
+            SensorManager.getRotationMatrixFromVector(myGLRenderer.getmRotationMatrix(), event.values);
+        }
     }
 }
