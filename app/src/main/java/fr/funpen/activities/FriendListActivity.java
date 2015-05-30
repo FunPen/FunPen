@@ -16,10 +16,10 @@ public class FriendListActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_friend_list);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_friend_list);
 
-        ListView myListView = (ListView)findViewById(R.id.listView);
+        final ListView myListView = (ListView) findViewById(R.id.listView);
         final ExtractEditText myEditText = (ExtractEditText) findViewById(R.id.extractEditText);
         final ArrayList<String> friendList = new ArrayList<String>();
         final ArrayAdapter<String> aa;
@@ -36,7 +36,16 @@ public class FriendListActivity extends Activity {
                 myEditText.setText("");
             }
         });
-	}
+
+        /*myListView.setOnClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                aa.notifyDataSetChanged();
+            }
+        });*/
+
+    }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

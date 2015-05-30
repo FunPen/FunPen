@@ -52,55 +52,13 @@
             android:background="#767B81"
             android:id="@+id/searchView" />
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
-
-            <HorizontalScrollView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:id="@+id/horizontalScrollView" >
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <FrameLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:id="@+id/imageView5"
-                            android:src="@drawable/model1"/>
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/imageView6"
-                            android:src="@drawable/model2"/>
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/imageView7"
-                            android:src="@drawable/model3"/>
-                    </FrameLayout>
-                </LinearLayout>
-            </HorizontalScrollView>
-        </LinearLayout>
+            <GridView
+                android:id="@+id/gridview"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:verticalSpacing="0dp"
+                android:horizontalSpacing="0dp"
+                android:stretchMode="columnWidth"
+                android:numColumns="2" />
     </LinearLayout>
 </RelativeLayout>
