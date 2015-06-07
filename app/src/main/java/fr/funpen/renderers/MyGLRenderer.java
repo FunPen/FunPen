@@ -78,10 +78,24 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 		gl.glRotatef(cube.getAngleY(), 0.0f, 1.0f, 0.0f); // rotate about the axis (1,1,1) (NEW)
 		gl.glRotatef(cube.getAngleZ(), 0.0f, 0.0f, 1.0f); // rotate about the axis (1,1,1) (NEW)
 		gl.glMultMatrixf(mRotationMatrix, 0);
+
 //		cube.setAngleX(cube.getAngleX() - 1.5f);
 //		cube.setAngleY(cube.getAngleY() - 1.5f);
 //		cube.setAngleZ(cube.getAngleZ() - 1.5f);
-		
+
+		// LIGHT
+		float[] position = {0f, -5f, 0f, 1f};
+		float[] ambient = {1f, 1f, 1f, 1f};
+		float[] direction = {0f, 1f, 0f};
+
+		gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_POSITION, position, 0);
+		gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_AMBIENT, ambient, 0);
+		gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_SPOT_DIRECTION, direction, 0);
+		gl.glLightf(GL10.GL_LIGHT0, GL10.GL_SPOT_CUTOFF, 100.0f);
+
+		gl.glEnable(GL10.GL_LIGHTING);
+		gl.glEnable(GL10.GL_LIGHT0);
+
 		cube.draw(gl);
 	}
 	

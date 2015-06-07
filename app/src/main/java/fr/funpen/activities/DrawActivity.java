@@ -228,6 +228,7 @@ public class DrawActivity extends Activity implements SensorEventListener {
             // convert the rotation-vector to a 4x4 matrix. the matrix
             // is interpreted by Open GL as the inverse of the
             // rotation-vector, which is what we want.
+
             SensorManager.getRotationMatrixFromVector(myGLRenderer.getmRotationMatrix(), event.values);
         }
     }

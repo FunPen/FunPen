@@ -11,13 +11,24 @@ public class Cube {
 	private float posX = 0.0f, posY = 0.0f, posZ = -6.0f;
 	private float angleX = 0.0f,  angleY = 0.0F, angleZ = 0.0f;
 
+	/*
 	private float[][] colors = {  // Colors of the 6 faces
 			{1.0f, 0.5f, 0.0f, 1.0f},  // 0. orange
-			{1.0f, 0.0f, 1.0f, 1.0f},  // 1. violet
+			{1.0f, 0.0f, 1.0f, 1.0f},  // 1. purple
 			{0.0f, 1.0f, 0.0f, 1.0f},  // 2. green
 			{0.0f, 0.0f, 1.0f, 1.0f},  // 3. blue
 			{1.0f, 0.0f, 0.0f, 1.0f},  // 4. red
 			{1.0f, 1.0f, 0.0f, 1.0f}   // 5. yellow
+	};
+	*/
+
+	private float[][] colors = {  // Colors of the 6 faces
+			{0.0f, 1.0f, 0.0f, 1.0f},  // green
+			{0.0f, 1.0f, 0.0f, 1.0f},  // green
+			{0.0f, 1.0f, 0.0f, 1.0f},  // green
+			{0.0f, 1.0f, 0.0f, 1.0f},  // green
+			{0.0f, 1.0f, 0.0f, 1.0f},  // green
+			{0.0f, 1.0f, 0.0f, 1.0f}   // green
 	};
 
 	private float[] vertices = {  // Vertices of the 6 faces
