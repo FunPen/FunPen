@@ -9,6 +9,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewPropertyAnimator;
@@ -22,25 +23,29 @@ import fr.funpen.renderers.MyGLRenderer;
 
 public class DrawActivity extends Activity implements SensorEventListener {
 
-    protected FunPenApp funPenApp;
+    protected FunPenApp             funPenApp;
 
     /* Bottom Menu*/
-    private float oldFingerY;
-    private float oldFingerX;
-    private boolean bottomMenuAnimating;
-    private boolean bottomMenuOpened;
+    private float                   oldFingerY;
+    private float                   oldFingerX;
+    private boolean                 bottomMenuAnimating;
+    private boolean                 bottomMenuOpened;
 
     /* Flash */
-    private boolean isLightTurnedOn;
+    private boolean                 isLightTurnedOn;
 
     // OpenGl
-    private MyGLRenderer myGLRenderer;
-    private GLSurfaceView glView;   // Use GLSurfaceView
+    private MyGLRenderer            myGLRenderer;
+    private GLSurfaceView           glView;   // Use GLSurfaceView
 
-    private SensorManager mSensorManager;
-    private Sensor mRotationVectorSensor;
+    private SensorManager           mSensorManager;
+    private Sensor                  mRotationVectorSensor;
+    private Sensor                  mAccelSensor;
+    private boolean                 mInitialized = false;
+    private static final float      NOISE = 0.25f;
 
-    private float prevX = 0, prevY = 0;
+    private float                   mLastX, mLastY, mLastZ;
+    private float                   prevX = 0, prevY = 0;
 
 
     @Override
@@ -64,6 +69,7 @@ public class DrawActivity extends Activity implements SensorEventListener {
         glView = new GLSurfaceView(this);           // Allocate a GLSurfaceView
         mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
         mRotationVectorSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
+        mAccelSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         myGLRenderer = new MyGLRenderer(this);
         glView.setRenderer(myGLRenderer); // Use a custom renderer
         this.setContentView(glView);                // This activity sets to GLSurfaceView
@@ -184,6 +190,7 @@ public class DrawActivity extends Activity implements SensorEventListener {
 
         // OpenGl
         mSensorManager.registerListener(this, mRotationVectorSensor, 10000);
+        mSensorManager.registerListener(this, mAccelSensor, SensorManager.SENSOR_DELAY_NORMAL);
         glView.onResume();
     }
 
@@ -230,6 +237,44 @@ public class DrawActivity extends Activity implements SensorEventListener {
             // rotation-vector, which is what we want.
 
             SensorManager.getRotationMatrixFromVector(myGLRenderer.getmRotationMatrix(), event.values);
+        }
+        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+            float x = event.values[0];
+            float y = event.values[1];
+            float z = event.values[2];
+            if (!mInitialized) {
+                mLastX = x;
+                mLastY = y;
+                mLastZ = z;
+                Log.i("FunPen", "x: " + 0.0);
+                Log.i("FunPen", "y: " + 0.0);
+                Log.i("FunPen", "z: " + 0.0);
+                Log.i("FunPen", "===========================");
+                mInitialized = true;
+            } else {
+                float deltaX = mLastX - x;
+                float deltaY = mLastY - y;
+                float deltaZ = mLastZ - z;
+
+                if (deltaX <= NOISE) deltaX = 0.0f;
+                if (deltaY <= NOISE) deltaY = 0.0f;
+                if (deltaZ <= NOISE) deltaZ = 0.0f;
+
+                mLastX = x;
+                mLastY = y;
+                mLastZ = z;
+
+                if (deltaX > NOISE)
+                    myGLRenderer.getCube().setPosX(myGLRenderer.getCube().getPosX() - deltaX/10);
+                if (deltaY > NOISE)
+                    myGLRenderer.getCube().setPosY(myGLRenderer.getCube().getPosY() + deltaY/10);
+                //if (deltaZ > NOISE)
+                //   myGLRenderer.getCube().setPosZ(myGLRenderer.getCube().getPosZ() - deltaZ);
+                Log.i("FunPen", "x: " + deltaX);
+                Log.i("FunPen", "y: " + deltaY);
+                Log.i("FunPen", "z: " + deltaZ);
+                Log.i("FunPen", "===========================");
+            }
         }
     }
 }
