@@ -74,14 +74,14 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 		gl.glLoadIdentity();                // Reset the model-view matrix
 		gl.glTranslatef(cube.getPosX(), cube.getPosY(), cube.getPosZ()); // Translate
 		gl.glScalef(0.8f, 0.8f, 0.8f);      // Scale down (NEW)
-		gl.glRotatef(cube.getAngleX(), 1.0f, 0.0f, 0.0f); // rotate about the axis (1,1,1) (NEW)
-		gl.glRotatef(cube.getAngleY(), 0.0f, 1.0f, 0.0f); // rotate about the axis (1,1,1) (NEW)
-		gl.glRotatef(cube.getAngleZ(), 0.0f, 0.0f, 1.0f); // rotate about the axis (1,1,1) (NEW)
+		gl.glRotatef(cube.getAngleX(), 1.0f, 0.0f, 0.0f); // rotate about the axis (1, 1, 1) (NEW)
+		gl.glRotatef(cube.getAngleY(), 0.0f, 1.0f, 0.0f); // rotate about the axis (1, 1, 1) (NEW)
+		gl.glRotatef(cube.getAngleZ(), 0.0f, 0.0f, 1.0f); // rotate about the axis (1, 1, 1) (NEW)
 		gl.glMultMatrixf(mRotationMatrix, 0);
 
-//		cube.setAngleX(cube.getAngleX() - 1.5f);
-//		cube.setAngleY(cube.getAngleY() - 1.5f);
-//		cube.setAngleZ(cube.getAngleZ() - 1.5f);
+		//cube.setAngleX(cube.getAngleX() - 1.5f);
+		//cube.setAngleY(cube.getAngleY() - 1.5f);
+		//cube.setAngleZ(cube.getAngleZ() - 1.5f);
 
 		// LIGHT
 		float[] position = {0f, -5f, 0f, 1f};
