@@ -6,12 +6,14 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.Display;
 import android.view.Menu;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import fr.funpen.customViews.User;
 import fr.funpen.dto.UserDto;
 import fr.stevecohen.eventBus.EventBus;
 
@@ -20,19 +22,29 @@ public class MainActivity extends Activity {
 	protected FunPenApp 	funPenApp;
 	private UserDto         user;
 	private EventBus		eventBus;
+    protected User          myself;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		user = UserDto.getInstance();
-		eventBus = EventBus.getEventBus();
-		funPenApp = (FunPenApp)this.getApplicationContext();
-		setContentView(R.layout.activity_main);
-		LinearLayout backgroundLayout = (LinearLayout) findViewById(R.id.mainMenu_backgroundLayout);
-		backgroundLayout.setBackgroundColor(0xbb000000);
-	}
+        super.onCreate(savedInstanceState);
 
-	public void onGalleryClicked(View v) {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        user = UserDto.getInstance();
+        eventBus = EventBus.getEventBus();
+        funPenApp = (FunPenApp) this.getApplicationContext();
+
+
+        setContentView(R.layout.activity_main);
+        LinearLayout backgroundLayout = (LinearLayout) findViewById(R.id.mainMenu_backgroundLayout);
+        backgroundLayout.setBackgroundColor(0xbb000000);
+
+    }
+
+
+
+    public void onGalleryClicked(View v) {
 		Log.i("FunPen", "Gallery clicked");
 		Intent galleryActivity = new Intent(this, GalleryActivity.class);
 		ActivityOptions opts = ActivityOptions.makeCustomAnimation(funPenApp, R.anim.slide_from_right, R.anim.nothing);
@@ -42,15 +54,19 @@ public class MainActivity extends Activity {
 	public void onCommunityClicked(View v) {
 		Log.i("FunPen", "Community clicked");
 		Intent communityActivity = new Intent(this, CommunityActivity.class);
-		Intent loginActivity = new Intent(this, LoginActivity.class);
 		ActivityOptions opts = ActivityOptions.makeCustomAnimation(funPenApp, R.anim.slide_from_right, R.anim.nothing);
-		/*
-		if (user.isLogged())
-			startActivity(communityActivity, opts.toBundle());
-		else
-			startActivity(loginActivity, opts.toBundle());
-		*/
-        startActivity(communityActivity);
+
+        String connection = getIntent().getStringExtra("connected");
+        Log.i("Connection", connection);
+
+        if (connection.equals("connected")) {
+            Log.i("Connection", "I'M IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIN");
+            startActivity(communityActivity);
+        }
+        else {
+            Intent loginActivity = new Intent(this, LoginActivity.class);
+            startActivity(loginActivity);
+        }
 	}
 
 	public void onSettingsClicked(View v) {

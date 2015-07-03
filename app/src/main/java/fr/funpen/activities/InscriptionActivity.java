@@ -10,31 +10,29 @@ import android.widget.Toast;
 
 import fr.funpen.customViews.RestClient;
 
-public class LoginActivity extends Activity {
+public class InscriptionActivity extends Activity {
 
-    EditText ID;
+    EditText MAIL;
     EditText PWD;
+    EditText PSEUDO;
     Toast toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_subscribe);
     }
 
-    public void onInscriptionClicked(View view){
-        Intent subscribe = new Intent(this, InscriptionActivity.class);
-        startActivity(subscribe);
-    }
-
-    public void onLoginClicked(View view){
-        ID = (EditText) findViewById(R.id.field_email);
+    public void onSubscribeClicked(View view){
+        MAIL = (EditText) findViewById(R.id.field_email);
         PWD = (EditText) findViewById(R.id.field_password);
+        PSEUDO = (EditText) findViewById(R.id.field_pseudo);
         Context context = getApplicationContext();
 
-        RestClient client = new RestClient("http://192.168.0.10:1337/auth/local");
+        RestClient client = new RestClient("http://192.168.0.10:1337/auth/local/register");
 
-        client.AddParam("identifier",ID.getText().toString());
+        client.AddParam("username",PSEUDO.getText().toString());
+        client.AddParam("email",MAIL.getText().toString());
         client.AddParam("password", PWD.getText().toString());
 
         try {

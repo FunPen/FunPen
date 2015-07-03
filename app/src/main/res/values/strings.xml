@@ -10,11 +10,12 @@
     <string name="mainMenu_account">COMMUNITY</string>
     <string name="title_activity_account">AccountActivity</string>
     <string name="title_activity_login">LoginActivity</string>
-    <string name="loginActivity_hintsPseudo">Pseudo</string>
+    <string name="loginActivity_hintsPseudo">Username</string>
     <string name="loginActivity_hintsEmail">Email</string>
     <string name="loginActivity_hintsPassword">Password</string>
     <string name="loginActivity_createNewAccountCheckbox">Create new account</string>
     <string name="loginActivity_LoginButton">Login</string>
+    <string name="subscribeActivity_SubscribeButton">Subscribe</string>
     <string name="bottomMenu_arrowDescription">Arrow to show open or close bottom menu</string>
     <string name="bottomMenu_colorscaleDescription">Use this tool to choose what color to use when drawing</string>
     <string name="bottomMenu_stretchDescription">With this tool you can stretch</string>
@@ -22,11 +23,12 @@
     <string name="bottomMenu_digDescription">With this tool you can dig</string>
     <string name="bottomMenu_scisorsDescription">With this tool you can cut</string>
     <string name="drawView_flashButton_description">Tap this button to toggle the flash light</string>
-    <string name="loginActivity_GetPasswordButton">Get Password</string>
+    <string name="loginActivity_GetPasswordButton">Inscription</string>
     <string name="title_activity_test">TestActivity</string>
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="title_activity_gallery">GalleryActivity</string>
     <string name="title_activity_draw">DrawActivity</string>
     <string name="title_activity_community">CommunityActivity</string>
     <string name="title_activity_friend_list">FriendListActivity</string>
+    <string name="title_activity_inscription">InscriptionActivity</string>
 </resources>
