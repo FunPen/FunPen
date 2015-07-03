@@ -50,7 +50,6 @@ public class Bluetooth extends Activity {
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         }
-
 		// If there are paired devices
 		if (pairedDevices.size() > 0) {
 		    // Loop through paired devices

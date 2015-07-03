@@ -16,9 +16,20 @@ public class CommunityActivity extends Activity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_community);
-        LinearLayout backgroundLayout = (LinearLayout) findViewById(R.id.communityBackgroundLayout);
-        backgroundLayout.setBackgroundColor(0xbb000000);
+
+        String connection = getIntent().getStringExtra("connected");
+        //Log.i("Connection", connection);
+
+        if (connection != null && connection.equals("connected")) {
+            Log.i("Connection", "I'M IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIN");
+            setContentView(R.layout.activity_community);
+            LinearLayout backgroundLayout = (LinearLayout) findViewById(R.id.communityBackgroundLayout);
+            backgroundLayout.setBackgroundColor(0xbb000000);
+        }
+        else {
+            Intent loginActivity = new Intent(this, LoginActivity.class);
+            startActivity(loginActivity);
+        }
     }
 
     public void onProfileClicked(View v) {

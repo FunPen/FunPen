@@ -28,9 +28,6 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-
         user = UserDto.getInstance();
         eventBus = EventBus.getEventBus();
         funPenApp = (FunPenApp) this.getApplicationContext();
@@ -53,20 +50,14 @@ public class MainActivity extends Activity {
 
 	public void onCommunityClicked(View v) {
 		Log.i("FunPen", "Community clicked");
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
 		Intent communityActivity = new Intent(this, CommunityActivity.class);
 		ActivityOptions opts = ActivityOptions.makeCustomAnimation(funPenApp, R.anim.slide_from_right, R.anim.nothing);
 
-        String connection = getIntent().getStringExtra("connected");
-        Log.i("Connection", connection);
-
-        if (connection.equals("connected")) {
-            Log.i("Connection", "I'M IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIN");
-            startActivity(communityActivity);
-        }
-        else {
-            Intent loginActivity = new Intent(this, LoginActivity.class);
-            startActivity(loginActivity);
-        }
+        startActivity(communityActivity);
 	}
 
 	public void onSettingsClicked(View v) {

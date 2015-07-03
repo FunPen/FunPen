@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -23,6 +24,7 @@ public class LoginActivity extends Activity {
     }
 
     public void onInscriptionClicked(View view){
+        Log.i("FunPen", "Subscribe clicked");
         Intent subscribe = new Intent(this, InscriptionActivity.class);
         startActivity(subscribe);
     }
@@ -31,6 +33,8 @@ public class LoginActivity extends Activity {
         ID = (EditText) findViewById(R.id.field_email);
         PWD = (EditText) findViewById(R.id.field_password);
         Context context = getApplicationContext();
+
+        Log.i("FunPen", "Login clicked");
 
         RestClient client = new RestClient("http://192.168.0.10:1337/auth/local");
 
@@ -47,7 +51,9 @@ public class LoginActivity extends Activity {
         //String error2 = client.getErrorMessage();
         //String response = client.getResponse();
 
-        Intent mainActivity = new Intent(this, MainActivity.class);
+        Intent communityActivity = new Intent(this, CommunityActivity.class);
+
+        Log.i("FunPen", "error = " + error1);
 
         if(error1 != 200){
             CharSequence text = "La connexion a échoué !";
@@ -56,12 +62,12 @@ public class LoginActivity extends Activity {
             toast = Toast.makeText(context, text, duration);
             toast.show();
 
-            mainActivity.putExtra("connected", "notConnected");
+            communityActivity.putExtra("connected", "notConnected");
         }
         else{
-            mainActivity.putExtra("connected", "connected");
+            communityActivity.putExtra("connected", "connected");
         }
 
-        startActivity(mainActivity);
+        startActivity(communityActivity);
     }
 }
