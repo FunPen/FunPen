@@ -10,17 +10,24 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import fr.funpen.customViews.RestClient;
+import fr.funpen.customViews.User;
 
 public class LoginActivity extends Activity {
 
     EditText ID;
     EditText PWD;
     Toast toast;
+    User myself;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        Intent i = getIntent();
+        myself =  getIntent().getExtras().getParcelable("myself");
+
+        Log.i("User","User name = " + myself.getName());
     }
 
     public void onInscriptionClicked(View view){
@@ -36,7 +43,9 @@ public class LoginActivity extends Activity {
 
         Log.i("FunPen", "Login clicked");
 
-        RestClient client = new RestClient("http://192.168.0.10:1337/auth/local");
+        RestClient client = new RestClient("http://192.168.1.95:1337/auth/local");
+
+        //RestClient client = new RestClient("http://127.0.0.1:1337/auth/local");
 
         client.AddParam("identifier",ID.getText().toString());
         client.AddParam("password", PWD.getText().toString());
@@ -52,6 +61,7 @@ public class LoginActivity extends Activity {
         //String response = client.getResponse();
 
         Intent communityActivity = new Intent(this, CommunityActivity.class);
+        Intent loginActivity = new Intent(this, LoginActivity.class);
 
         Log.i("FunPen", "error = " + error1);
 
@@ -61,13 +71,11 @@ public class LoginActivity extends Activity {
 
             toast = Toast.makeText(context, text, duration);
             toast.show();
-
-            communityActivity.putExtra("connected", "notConnected");
         }
         else{
-            communityActivity.putExtra("connected", "connected");
+            myself.setConnected("connected");
+            communityActivity.putExtra("myself", myself);
+            startActivity(communityActivity);
         }
-
-        startActivity(communityActivity);
     }
 }

@@ -41,7 +41,7 @@
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="#ffffff"
                     android:text="Gallerie de Pseudonyme"
-                    android:id="@+id/textView" />
+                    android:id="@+id/userNameGallery" />
             </LinearLayout>
         </LinearLayout>
 

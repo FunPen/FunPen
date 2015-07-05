@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,13 +20,23 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.funpen.customViews.User;
+
 
 public class GalleryActivity extends Activity {
+
+    User myself;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
+
+        myself =  getIntent().getExtras().getParcelable("myself");
+        Log.i("User","User name = " + myself.getName());
+
+        TextView username = (TextView) findViewById(R.id.userNameGallery);
+        username.setText("Gallerie de " + myself.getName());
 
         GridView gridView = (GridView)findViewById(R.id.gridview);
         gridView.setAdapter(new MyAdapter(this));
@@ -65,10 +76,7 @@ public class GalleryActivity extends Activity {
     public void onProfileClicked(View v) {
         Log.i("FunPen", "Profile clicked");
         Intent accountActivity = new Intent(this, AccountActivity.class);
-		/*if (user.isLogged())
-			startActivity(communityActivity, opts.toBundle());
-		else
-			startActivity(loginActivity, opts.toBundle());*/
+        accountActivity.putExtra("myself", myself);
         startActivity(accountActivity);
     }
 
