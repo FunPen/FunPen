@@ -26,8 +26,6 @@ public class LoginActivity extends Activity {
 
         Intent i = getIntent();
         myself =  getIntent().getExtras().getParcelable("myself");
-
-        Log.i("User","User name = " + myself.getName());
     }
 
     public void onInscriptionClicked(View view){

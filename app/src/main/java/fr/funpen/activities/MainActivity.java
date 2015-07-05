@@ -46,7 +46,6 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         LinearLayout backgroundLayout = (LinearLayout) findViewById(R.id.mainMenu_backgroundLayout);
         backgroundLayout.setBackgroundColor(0xbb000000);
-
     }
 
 

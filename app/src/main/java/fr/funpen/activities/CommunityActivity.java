@@ -42,7 +42,7 @@ public class CommunityActivity extends Activity{
     }
 
     public void onSearchClicked(View v) {
-        Log.i("FunPen", "Profile clicked");
+        Log.i("FunPen", "Search clicked");
         Intent friendListActivity = new Intent(this, FriendListActivity.class);
         friendListActivity.putExtra("myself", myself);
         startActivity(friendListActivity);

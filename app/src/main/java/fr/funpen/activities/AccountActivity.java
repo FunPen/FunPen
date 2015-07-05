@@ -65,7 +65,6 @@ public class AccountActivity extends Activity {
     }
 
     public void onEditClicked(View v) {
-        Log.i("FunPen", "Edit clicked");
 
         myself.setName(username.getText().toString());
         myself.setMail(mail.getText().toString());

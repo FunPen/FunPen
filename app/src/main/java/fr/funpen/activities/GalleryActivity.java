@@ -33,7 +33,6 @@ public class GalleryActivity extends Activity {
         setContentView(R.layout.activity_gallery);
 
         myself =  getIntent().getExtras().getParcelable("myself");
-        Log.i("User","User name = " + myself.getName());
 
         TextView username = (TextView) findViewById(R.id.userNameGallery);
         username.setText("Gallerie de " + myself.getName());

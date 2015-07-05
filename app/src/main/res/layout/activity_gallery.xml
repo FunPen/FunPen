@@ -51,7 +51,6 @@
             android:layout_marginBottom="5dp"
             android:background="#767B81"
             android:id="@+id/searchView" />
-
             <GridView
                 android:id="@+id/gridview"
                 android:layout_width="fill_parent"
