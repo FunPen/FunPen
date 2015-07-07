@@ -8,6 +8,7 @@
     <string name="mainMenu_clickToDraw">Touch to start drawing</string>
     <string name="mainMenu_gallery">GALLERY</string>
     <string name="mainMenu_account">COMMUNITY</string>
+    <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_account">AccountActivity</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="loginActivity_hintsPseudo">Username</string>

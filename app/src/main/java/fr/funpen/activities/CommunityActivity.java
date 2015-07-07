@@ -22,10 +22,20 @@ public class CommunityActivity extends Activity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_community);
 
         myself =  getIntent().getExtras().getParcelable("myself");
-        Log.i("User","User name = " + myself.getName());
+        Log.i("User","User name in community = " + myself.getName());
+
+
+
+        if (myself.getConnected().equals("notConnected")) {
+            Intent loginActivity = new Intent(this, LoginActivity.class);
+            loginActivity.putExtra("myself", myself);
+            //startActivity(loginActivity);
+            startActivityForResult(loginActivity, 1);
+        }
+
+        setContentView(R.layout.activity_community);
 
         TextView username = (TextView) findViewById(R.id.userNameCommunity);
         TextView mail = (TextView) findViewById(R.id.mailCommunity);
@@ -46,5 +56,37 @@ public class CommunityActivity extends Activity{
         Intent friendListActivity = new Intent(this, FriendListActivity.class);
         friendListActivity.putExtra("myself", myself);
         startActivity(friendListActivity);
+    }
+
+    public void onBackPressed() {
+        // super.onBackPressed();
+        Log.i("PressBack", "Pressback clicked on community");
+        Intent intent = new Intent();
+        intent.putExtra("myself", myself);
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                Log.i("PressBack", "I'm back in community");
+                myself =  data.getExtras().getParcelable("myself");
+                Intent mainyActivity = new Intent(this, MainActivity.class);
+
+                if (myself.getConnected().equals("connected")) {
+                    Log.i("Connection", "I'M IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIN");
+                    mainyActivity.putExtra("myself", myself);
+                    startActivity(mainyActivity);
+                }
+                else{
+                    Intent mainActivity = new Intent(this, MainActivity.class);
+                    mainActivity.putExtra("myself", myself);
+                    startActivityForResult(mainActivity, 1);
+                }
+            }
+        }
     }
 }

@@ -11,34 +11,22 @@ public class User implements Parcelable {
 
     private String mName;
     private String mMail;
-    private String mCountry;
-    private String mDescription;
     private String mConnected;
 
-    public User(String name, String mail, String country, String description, String connected)
+    public User(String name, String mail, String connected)
     {
         super();
         this.mName = name;
         this.mMail = mail;
-        this.mCountry = country;
-        this.mDescription = description;
         this.mConnected = connected;
     }
 
     public void setName(String value){  mName = value;   }
     public void setMail(String value){   mMail = value;    }
-    public void setCountry(String value){   mCountry = value;    }
-    public void setDescription(String value){   mDescription = value;    }
     public void setConnected(String value){    mConnected = value;  }
 
     public String getName(){ return mName; }
     public String getMail(){ return mMail; }
-    public String getCountry(){
-        return mCountry;
-    }
-    public String getDescription(){
-        return mDescription;
-    }
     public String getConnected(){
         return mConnected;
     }
@@ -51,8 +39,6 @@ public class User implements Parcelable {
     public void writeToParcel(Parcel out, int flags) {
         out.writeString(mName);
         out.writeString(mMail);
-        out.writeString(mCountry);
-        out.writeString(mDescription);
         out.writeString(mConnected);
     }
 
@@ -74,8 +60,6 @@ public class User implements Parcelable {
     public User(Parcel in) {
         this.mName = in.readString();
         this.mMail = in.readString();
-        this.mCountry = in.readString();
-        this.mDescription = in.readString();
         this.mConnected = in.readString();
     }
 }

@@ -29,13 +29,9 @@ public class AccountActivity extends Activity {
 
         username = (EditText) findViewById(R.id.userNameAccount);
         mail = (EditText) findViewById(R.id.mailAccount);
-        country = (EditText) findViewById(R.id.countryAccount);
-        description = (EditText) findViewById(R.id.descriptionAccount);
 
         username.setText(myself.getName());
         mail.setText(myself.getMail());
-        country.setText(myself.getCountry());
-        description.setText(myself.getDescription());
 
         Log.i("FunPen", "[Account] Building");
         funPenApp = (FunPenApp)this.getApplicationContext();
@@ -49,8 +45,11 @@ public class AccountActivity extends Activity {
 
     @Override
     public void onBackPressed() {
+        // super.onBackPressed();
+        Intent intent = new Intent();
+        intent.putExtra("myself", myself);
+        setResult(RESULT_OK, intent);
         finish();
-        this.overridePendingTransition(R.anim.nothing, R.anim.slide_to_right);
     }
 
     @Override
@@ -68,8 +67,6 @@ public class AccountActivity extends Activity {
 
         myself.setName(username.getText().toString());
         myself.setMail(mail.getText().toString());
-        myself.setCountry(country.getText().toString());
-        myself.setDescription(description.getText().toString());
 
         Intent mainActivity = new Intent(this, MainActivity.class);
         mainActivity.putExtra("myself", myself);

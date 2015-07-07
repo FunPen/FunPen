@@ -1,4 +1,4 @@
-package fr.funpen.customViews;
+package fr.funpen.services;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;

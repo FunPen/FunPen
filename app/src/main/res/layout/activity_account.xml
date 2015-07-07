@@ -1,104 +1,70 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:background="@drawable/background1"
     tools:context=".AccountActivity" >
 
-
-    <LinearLayout
-        android:orientation="vertical"
+    <FrameLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true">
-
+        android:layout_height="wrap_content"
+        android:id="@+id/frameLayout">
         <ImageView
-            android:layout_width="150dp"
-            android:layout_height="0dp"
-            android:layout_weight="20"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="20dp"
             android:id="@+id/imageView4"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/android_avatar"/>
+    </FrameLayout>
 
-        <LinearLayout
-            android:orientation="horizontal"
+    <FrameLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_marginTop="20dp"
+        android:layout_height="50dp"
+        android:background="#21262B"
+        android:layout_below="@+id/frameLayout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/frameLayout2">
+
+        <EditText
+           android:layout_width="fill_parent"
+           android:layout_height="fill_parent"
+           android:inputType="textPersonName"
+           android:text="Pseudonyme"
+           android:ems="10"
+           android:textColor="#ffffff"
+           android:id="@+id/userNameAccount" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:background="#21262B"
+        android:layout_below="@+id/frameLayout2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <EditText
             android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_weight="10"
-            android:background="#21262B"
-            android:layout_marginBottom="5dp">
+            android:layout_height="fill_parent"
+            android:inputType="textPersonName"
+            android:text="Mail"
+            android:ems="10"
+            android:textColor="#ffffff"
+            android:id="@+id/mailAccount" />
+    </FrameLayout>
 
-            <EditText
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:inputType="textPersonName"
-                android:text="Pseudonyme"
-                android:ems="10"
-                android:textColor="#ffffff"
-                android:id="@+id/userNameAccount" />
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_weight="10"
-            android:background="#21262B"
-            android:layout_marginBottom="5dp">
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Edit"
+        android:id="@+id/button2"
+        android:onClick="onEditClicked"
+        android:layout_alignParentBottom="true" />
 
-            <EditText
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:inputType="textPersonName"
-                android:text="Mail"
-                android:ems="10"
-                android:textColor="#ffffff"
-                android:id="@+id/mailAccount" />
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_weight="10"
-            android:background="#21262B"
-            android:layout_marginBottom="5dp">
-
-            <EditText
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:inputType="textPersonName"
-                android:text="Nationalitée"
-                android:ems="10"
-                android:textColor="#ffffff"
-                android:id="@+id/countryAccount" />
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_weight="40"
-            android:background="#21262B"
-            android:layout_marginBottom="5dp">
-
-            <EditText
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:gravity="top"
-                android:inputType="textPersonName"
-                android:text="Ta description...."
-                android:ems="10"
-                android:textColor="#ffffff"
-                android:id="@+id/descriptionAccount" />
-        </LinearLayout>
-
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_weight="10"
-            android:text="Edit"
-            android:id="@+id/button2"
-            android:onClick="onEditClicked"
-            android:layout_gravity="center_horizontal" />
-
-    </LinearLayout>
 </RelativeLayout>

@@ -1,7 +1,8 @@
 package fr.funpen.activities;
 
 import android.app.Activity;
-import android.app.ActivityOptions;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Point;
@@ -28,6 +29,9 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         user = UserDto.getInstance();
         eventBus = EventBus.getEventBus();
         funPenApp = (FunPenApp) this.getApplicationContext();
@@ -36,11 +40,11 @@ public class MainActivity extends Activity {
 
         if (extras != null) {
             myself = getIntent().getExtras().getParcelable("myself") ;
-            Log.i("User", "myself != null");
+            Log.i("User", "myself != null & Username = " + myself.getName());
         }
         else {
             Log.i("User", "myself = null");
-            myself = new User("Unknow", "nobody@anonymous.eu", "No-man's land", "Je suis un petit nouveau", "notConnected");
+            myself = new User("Unknow", "nobody@anonymous.eu", "notConnected");
         }
 
         setContentView(R.layout.activity_main);
@@ -60,21 +64,9 @@ public class MainActivity extends Activity {
 	public void onCommunityClicked(View v) {
 		Log.i("FunPen", "Community clicked");
 
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-
-        Intent communityActivity = new Intent(this, CommunityActivity.class);
-
-        if (myself.getConnected().equals("connected")) {
-            Log.i("Connection", "I'M IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIN");
-            communityActivity.putExtra("myself", myself);
-            startActivity(communityActivity);
-        }
-        else {
-            Intent loginActivity = new Intent(this, LoginActivity.class);
-            loginActivity.putExtra("myself", myself);
-            startActivity(loginActivity);
-        }
+        Intent communityyActivity = new Intent(this, CommunityActivity.class);
+        communityyActivity.putExtra("myself", myself);
+        startActivity(communityyActivity);
 	}
 
 	public void onSettingsClicked(View v) {
@@ -112,4 +104,30 @@ public class MainActivity extends Activity {
 		display.getSize(size);
 		return (size);
 	}
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setTitle("Exit Application?");
+        alertDialogBuilder
+                .setMessage("Click yes to exit!")
+                .setCancelable(false)
+                .setPositiveButton("Yes",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                moveTaskToBack(true);
+                                finish();
+                            }
+                        })
+
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
 }

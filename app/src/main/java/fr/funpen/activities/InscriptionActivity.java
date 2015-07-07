@@ -4,22 +4,30 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import fr.funpen.customViews.RestClient;
+import fr.funpen.customViews.User;
+import fr.funpen.services.RestClient;
 
 public class InscriptionActivity extends Activity {
 
-    EditText MAIL;
-    EditText PWD;
-    EditText PSEUDO;
-    Toast toast;
+    EditText    MAIL;
+    EditText    PWD;
+    EditText    PSEUDO;
+    User        myself;
+    Toast       toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        myself =  getIntent().getExtras().getParcelable("myself");
+        Log.i("User","User connected in login = " + myself.getConnected());
+
+
         setContentView(R.layout.activity_subscribe);
     }
 
@@ -29,7 +37,7 @@ public class InscriptionActivity extends Activity {
         PSEUDO = (EditText) findViewById(R.id.field_pseudo);
         Context context = getApplicationContext();
 
-        RestClient client = new RestClient("http://192.168.0.10:1337/auth/local/register");
+        RestClient client = new RestClient("http://192.168.1.95:1337/auth/local/register");
 
         client.AddParam("username",PSEUDO.getText().toString());
         client.AddParam("email",MAIL.getText().toString());
@@ -42,24 +50,57 @@ public class InscriptionActivity extends Activity {
         }
 
         int error1 = client.getResponseCode();
-        //String error2 = client.getErrorMessage();
-        //String response = client.getResponse();
+        String error2 = client.getErrorMessage();
+        String response = client.getResponse();
+
+        Log.i("Inscription","error1 = " + error1);
+        Log.i("Inscription","error2 = " + error2);
+        Log.i("Inscription","response = " + response);
 
         Intent mainActivity = new Intent(this, MainActivity.class);
+        Intent communityActivity = new Intent(this, CommunityActivity.class);
 
         if(error1 != 200){
-            CharSequence text = "La connexion a échoué !";
+            CharSequence text = "L'inscription a échoué !";
             int duration = Toast.LENGTH_SHORT;
 
             toast = Toast.makeText(context, text, duration);
             toast.show();
-
-            mainActivity.putExtra("connected", "notConnected");
         }
         else{
-            mainActivity.putExtra("connected", "connected");
+            myself.setName(PSEUDO.getText().toString());
+            myself.setMail(MAIL.getText().toString());
+            myself.setConnected("connected");
+            communityActivity.putExtra("myself", myself);
+            //startActivity(communityActivity);
+            startActivityForResult(communityActivity, 1);
         }
+    }
 
-        startActivity(mainActivity);
+    public void onBackPressed() {
+        // super.onBackPressed();
+        Log.i("PressBack", "Pressback clicked on inscription");
+        Intent intent = new Intent();
+        intent.putExtra("myself", myself);
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                Log.i("PressBack", "I'm Subscribe");
+                myself =  data.getExtras().getParcelable("myself");
+                Intent mainyActivity = new Intent(this, MainActivity.class);
+
+                if (myself.getConnected().equals("connected")) {
+                    Log.i("Connection", "I'M IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIN");
+                    mainyActivity.putExtra("myself", myself);
+                    startActivity(mainyActivity);
+                }
+            }
+        }
     }
 }
