@@ -14,7 +14,7 @@
         android:layout_marginTop="130dp"
         android:background="@drawable/edit_text_borders"
         android:ems="10"
-        android:hint="@string/loginActivity_hintsEmail"
+        android:hint="@string/loginActivity_hintsEmailUsername"
         android:inputType="textEmailAddress"
         android:textColor="#ffffff"
         android:textColorHint="#ffffff" />

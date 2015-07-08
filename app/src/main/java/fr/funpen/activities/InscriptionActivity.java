@@ -9,6 +9,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import fr.funpen.customViews.User;
 import fr.funpen.services.RestClient;
 
@@ -19,14 +22,16 @@ public class InscriptionActivity extends Activity {
     EditText    PSEUDO;
     User        myself;
     Toast       toast;
+    String      lastActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         myself =  getIntent().getExtras().getParcelable("myself");
+        lastActivity = myself.getLastActivity();
         Log.i("User","User connected in login = " + myself.getConnected());
-
+        Log.i("Last Activity","Last activity in subscribe = " + myself.getLastActivity());
 
         setContentView(R.layout.activity_subscribe);
     }
@@ -57,9 +62,6 @@ public class InscriptionActivity extends Activity {
         Log.i("Inscription","error2 = " + error2);
         Log.i("Inscription","response = " + response);
 
-        Intent mainActivity = new Intent(this, MainActivity.class);
-        Intent communityActivity = new Intent(this, CommunityActivity.class);
-
         if(error1 != 200){
             CharSequence text = "L'inscription a échoué !";
             int duration = Toast.LENGTH_SHORT;
@@ -68,12 +70,23 @@ public class InscriptionActivity extends Activity {
             toast.show();
         }
         else{
+            try {
+                JSONObject reader = new JSONObject(response);
+                myself.setToken(reader.getString("token"));
+                Log.i("Inscription", "Myself token = " + myself.getToken());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
             myself.setName(PSEUDO.getText().toString());
             myself.setMail(MAIL.getText().toString());
             myself.setConnected("connected");
-            communityActivity.putExtra("myself", myself);
-            //startActivity(communityActivity);
-            startActivityForResult(communityActivity, 1);
+            if (lastActivity.equals("communityActivity")) {
+                Intent communityActivity = new Intent(this, CommunityActivity.class);
+                myself.setLastActivity("null");
+                communityActivity.putExtra("myself", myself);
+                startActivityForResult(communityActivity, 1);
+            }
         }
     }
 

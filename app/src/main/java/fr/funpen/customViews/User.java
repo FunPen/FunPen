@@ -12,6 +12,8 @@ public class User implements Parcelable {
     private String mName;
     private String mMail;
     private String mConnected;
+    private String token;
+    private String lastActivity;
 
     public User(String name, String mail, String connected)
     {
@@ -24,11 +26,19 @@ public class User implements Parcelable {
     public void setName(String value){  mName = value;   }
     public void setMail(String value){   mMail = value;    }
     public void setConnected(String value){    mConnected = value;  }
+    public void setToken(String value){    token = value;  }
+    public void setLastActivity(String value){    lastActivity = value;  }
 
     public String getName(){ return mName; }
     public String getMail(){ return mMail; }
     public String getConnected(){
         return mConnected;
+    }
+    public String getToken(){
+        return token;
+    }
+    public String getLastActivity(){
+        return lastActivity;
     }
 
     @Override
@@ -40,6 +50,8 @@ public class User implements Parcelable {
         out.writeString(mName);
         out.writeString(mMail);
         out.writeString(mConnected);
+        out.writeString(token);
+        out.writeString(lastActivity);
     }
 
     public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>()
@@ -61,5 +73,7 @@ public class User implements Parcelable {
         this.mName = in.readString();
         this.mMail = in.readString();
         this.mConnected = in.readString();
+        this.token = in.readString();
+        this.lastActivity = in.readString();
     }
 }

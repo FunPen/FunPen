@@ -9,6 +9,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import fr.funpen.services.RestClient;
 import fr.funpen.customViews.User;
 
@@ -18,20 +21,16 @@ public class LoginActivity extends Activity {
     EditText PWD;
     Toast toast;
     User myself;
+    String lastActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         myself =  getIntent().getExtras().getParcelable("myself");
+        lastActivity = myself.getLastActivity();
         Log.i("User","User connected in login = " + myself.getConnected());
-        Intent mainActivity = new Intent(this, MainActivity.class);
-
-        if (myself.getConnected().equals("connected")) {
-            Log.i("Connection", "I'M IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIN");
-            mainActivity.putExtra("myself", myself);
-            startActivity(mainActivity);
-        }
+        Log.i("Last Activity","Last activity in login = " + myself.getLastActivity());
         setContentView(R.layout.activity_login);
     }
 
@@ -63,11 +62,9 @@ public class LoginActivity extends Activity {
         }
 
         int error1 = client.getResponseCode();
-        //String error2 = client.getErrorMessage();
-        //String response = client.getResponse();
+        String response = client.getResponse();
 
-        Intent communityActivity = new Intent(this, CommunityActivity.class);
-        Intent loginActivity = new Intent(this, LoginActivity.class);
+        Log.i("Login","response = " + response);
 
         Log.i("FunPen", "error = " + error1);
 
@@ -78,10 +75,37 @@ public class LoginActivity extends Activity {
             toast.show();
         }
         else{
+            try {
+                JSONObject reader = new JSONObject(response);
+                myself.setToken(reader.getString("token"));
+                Log.i("Login", "Myself token = " + myself.getToken());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            /*client = new RestClient("http://192.168.1.95:1337/user/:id");
+            client.AddParam("Authorization", "Bearer " + myself.getToken());
+
+            try {
+                client.Execute(RestClient.RequestMethod.POST);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            error1 = client.getResponseCode();
+            response = client.getResponse();
+
+            Log.i("Login","error = " + error1);
+            Log.i("Login","response = " + response);*/
+
             myself.setConnected("connected");
-            communityActivity.putExtra("myself", myself);
-            //startActivity(communityActivity);
-            startActivityForResult(communityActivity, 1);
+            if (lastActivity.equals("communityActivity")) {
+                Intent communityActivity = new Intent(this, CommunityActivity.class);
+                myself.setLastActivity("null");
+                communityActivity.putExtra("myself", myself);
+                //startActivity(communityActivity);
+                startActivityForResult(communityActivity, 1);
+            }
         }
     }
 
