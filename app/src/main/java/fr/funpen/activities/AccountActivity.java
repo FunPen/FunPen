@@ -1,15 +1,20 @@
 package fr.funpen.activities;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import fr.funpen.customViews.User;
+import fr.funpen.services.RestClient;
 
 public class AccountActivity extends Activity {
 
@@ -17,8 +22,7 @@ public class AccountActivity extends Activity {
     private User        myself;
     private EditText    username;
     private EditText    mail;
-    private EditText    country;
-    private EditText    description;
+    private Toast       toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +69,43 @@ public class AccountActivity extends Activity {
 
     public void onEditClicked(View v) {
 
-        myself.setName(username.getText().toString());
-        myself.setMail(mail.getText().toString());
+        Context context = getApplicationContext();
+        RestClient client = new RestClient("http://192.168.1.95:1337/user/" + myself.getId());
+
+        client.AddHeader("Authorization", "Bearer " + myself.getToken());
+
+        client.AddParam("id", myself.getId());
+        client.AddParam("username", username.getText().toString());
+        client.AddParam("email", mail.getText().toString());
+
+        try {
+            client.Execute(RestClient.RequestMethod.POST);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        int error1 = client.getResponseCode();
+        String response = client.getResponse();
+
+        if(error1 != 200){
+            CharSequence text = "L'édition de votre profil a échoué !";
+            int duration = Toast.LENGTH_SHORT;
+            toast = Toast.makeText(context, text, duration);
+            toast.show();
+        }
+        else {
+            try {
+                JSONObject reader = new JSONObject(response);
+                myself.setName(reader.getString("username"));
+                myself.setMail(reader.getString("email"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        Log.i("Account", "error = " + error1);
+        Log.i("Account", "response = " + response);
 
         Intent mainActivity = new Intent(this, MainActivity.class);
         mainActivity.putExtra("myself", myself);

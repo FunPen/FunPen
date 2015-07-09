@@ -17,12 +17,12 @@ import fr.funpen.services.RestClient;
 
 public class InscriptionActivity extends Activity {
 
-    EditText    MAIL;
-    EditText    PWD;
-    EditText    PSEUDO;
-    User        myself;
-    Toast       toast;
-    String      lastActivity;
+    private     EditText    MAIL;
+    private     EditText    PWD;
+    private     EditText    PSEUDO;
+    private     User        myself;
+    private     Toast       toast;
+    private     String      lastActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +30,6 @@ public class InscriptionActivity extends Activity {
 
         myself =  getIntent().getExtras().getParcelable("myself");
         lastActivity = myself.getLastActivity();
-        Log.i("User","User connected in login = " + myself.getConnected());
-        Log.i("Last Activity","Last activity in subscribe = " + myself.getLastActivity());
-
         setContentView(R.layout.activity_subscribe);
     }
 
@@ -55,12 +52,11 @@ public class InscriptionActivity extends Activity {
         }
 
         int error1 = client.getResponseCode();
-        String error2 = client.getErrorMessage();
         String response = client.getResponse();
 
-        Log.i("Inscription","error1 = " + error1);
+        /*Log.i("Inscription","error1 = " + error1);
         Log.i("Inscription","error2 = " + error2);
-        Log.i("Inscription","response = " + response);
+        Log.i("Inscription","response = " + response);*/
 
         if(error1 != 200){
             CharSequence text = "L'inscription a échoué !";
@@ -72,14 +68,14 @@ public class InscriptionActivity extends Activity {
         else{
             try {
                 JSONObject reader = new JSONObject(response);
+                myself.setName(reader.getString("username"));
+                myself.setMail(reader.getString("email"));
                 myself.setToken(reader.getString("token"));
-                Log.i("Inscription", "Myself token = " + myself.getToken());
+                myself.setId(reader.getString("id"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
-            myself.setName(PSEUDO.getText().toString());
-            myself.setMail(MAIL.getText().toString());
             myself.setConnected("connected");
             if (lastActivity.equals("communityActivity")) {
                 Intent communityActivity = new Intent(this, CommunityActivity.class);

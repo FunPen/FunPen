@@ -38,14 +38,10 @@ public class MainActivity extends Activity {
 
         Bundle extras = getIntent().getExtras();
 
-        if (extras != null) {
+        if (extras != null)
             myself = getIntent().getExtras().getParcelable("myself") ;
-            Log.i("User", "myself != null & Username = " + myself.getName());
-        }
-        else {
-            Log.i("User", "myself = null");
+        else
             myself = new User("Unknow", "nobody@anonymous.eu", "notConnected");
-        }
 
         setContentView(R.layout.activity_main);
         LinearLayout backgroundLayout = (LinearLayout) findViewById(R.id.mainMenu_backgroundLayout);
@@ -55,18 +51,16 @@ public class MainActivity extends Activity {
 
 
     public void onGalleryClicked(View v) {
-		Log.i("FunPen", "Gallery clicked");
 		Intent galleryActivity = new Intent(this, GalleryActivity.class);
         galleryActivity.putExtra("myself", myself);
         startActivity(galleryActivity);
     }
 
 	public void onCommunityClicked(View v) {
-		Log.i("FunPen", "Community clicked");
-
-        Intent communityyActivity = new Intent(this, CommunityActivity.class);
-        communityyActivity.putExtra("myself", myself);
-        startActivity(communityyActivity);
+        
+        Intent communityActivity = new Intent(this, CommunityActivity.class);
+        communityActivity.putExtra("myself", myself);
+        startActivity(communityActivity);
 	}
 
 	public void onSettingsClicked(View v) {
@@ -115,10 +109,10 @@ public class MainActivity extends Activity {
                 .setPositiveButton("Yes",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                Intent startMain = new Intent(Intent.ACTION_MAIN);
-                                startMain.addCategory(Intent.CATEGORY_HOME);
-                                startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(startMain);
+                                Intent minimize = new Intent(Intent.ACTION_MAIN);
+                                minimize.addCategory(Intent.CATEGORY_HOME);
+                                minimize.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(minimize);
                             }
                         })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
