@@ -4,12 +4,15 @@
     android:layout_height="match_parent"
     tools:context="fr.funpen.activities.DrawActivity">
 
-    <include layout="@layout/camera" />
-
     <RelativeLayout
         android:id="@+id/drawView_layout"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
+
+        <fr.funpen.camera.MyGLSurfaceView
+            android:id="@+id/myGLSurfaceView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
 
         <ImageView
             android:id="@+id/flashButton"
@@ -98,6 +101,9 @@
                 </LinearLayout>
             </HorizontalScrollView>
         </LinearLayout>
+
     </RelativeLayout>
+
+    <!--<include layout="@layout/camera" />-->
 
 </RelativeLayout>

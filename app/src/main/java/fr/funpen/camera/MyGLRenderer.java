@@ -1,4 +1,4 @@
-package fr.funpen.renderers;
+package fr.funpen.camera;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 import android.content.Context;
@@ -33,7 +33,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 	// Call back when the surface is first created or re-created
 	@Override
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-		gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);  // Set color's clear-value to black
+		gl.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);  // Set color's clear-value to black
 		gl.glClearDepthf(1.0f);            // Set depth's clear-value to farthest
 		gl.glEnable(GL10.GL_DEPTH_TEST);   // Enables depth-buffer for hidden surface removal
 		gl.glDepthFunc(GL10.GL_LEQUAL);    // The type of depth testing to do
@@ -74,14 +74,13 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 		gl.glLoadIdentity();                // Reset the model-view matrix
 		gl.glTranslatef(cube.getPosX(), cube.getPosY(), cube.getPosZ()); // Translate
 		gl.glScalef(0.8f, 0.8f, 0.8f);      // Scale down (NEW)
-		gl.glRotatef(cube.getAngleX(), 1.0f, 0.0f, 0.0f); // rotate about the axis (1, 1, 1) (NEW)
-		gl.glRotatef(cube.getAngleY(), 0.0f, 1.0f, 0.0f); // rotate about the axis (1, 1, 1) (NEW)
-		gl.glRotatef(cube.getAngleZ(), 0.0f, 0.0f, 1.0f); // rotate about the axis (1, 1, 1) (NEW)
+		gl.glRotatef(cube.getAngleX(), 1.0f, 0.0f, 0.0f); // rotate about the axis (1,1,1) (NEW)
+		gl.glRotatef(cube.getAngleY(), 0.0f, 1.0f, 0.0f); // rotate about the axis (1,1,1) (NEW)
+		gl.glRotatef(cube.getAngleZ(), 0.0f, 0.0f, 1.0f); // rotate about the axis (1,1,1) (NEW)
 		gl.glMultMatrixf(mRotationMatrix, 0);
-
-		//cube.setAngleX(cube.getAngleX() - 1.5f);
-		//cube.setAngleY(cube.getAngleY() - 1.5f);
-		//cube.setAngleZ(cube.getAngleZ() - 1.5f);
+//		cube.setAngleX(cube.getAngleX() - 1.5f);
+//		cube.setAngleY(cube.getAngleY() - 1.5f);
+//		cube.setAngleZ(cube.getAngleZ() - 1.5f);
 
 		// LIGHT
 		float[] position = {0f, -5f, 0f, 1f};
@@ -95,7 +94,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
 		gl.glEnable(GL10.GL_LIGHTING);
 		gl.glEnable(GL10.GL_LIGHT0);
-
+		
 		cube.draw(gl);
 	}
 	

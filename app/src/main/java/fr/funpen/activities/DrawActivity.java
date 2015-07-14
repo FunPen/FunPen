@@ -7,7 +7,6 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -17,8 +16,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import fr.funpen.camera.MyGLRenderer;
+import fr.funpen.camera.MyGLSurfaceView;
 import fr.funpen.customViews.CameraView;
-import fr.funpen.renderers.MyGLRenderer;
 
 
 public class DrawActivity extends Activity implements SensorEventListener {
@@ -36,7 +36,7 @@ public class DrawActivity extends Activity implements SensorEventListener {
 
     // OpenGl
     private MyGLRenderer            myGLRenderer;
-    private GLSurfaceView           glView;   // Use GLSurfaceView
+    private MyGLSurfaceView         glView;   // Use GLSurfaceView
 
     private SensorManager           mSensorManager;
     private Sensor                  mRotationVectorSensor;
@@ -66,13 +66,13 @@ public class DrawActivity extends Activity implements SensorEventListener {
         drawViewLayout.setVisibility(View.VISIBLE);
 
         // OpenGL
-        glView = new GLSurfaceView(this);           // Allocate a GLSurfaceView
+        glView = (MyGLSurfaceView) findViewById(R.id.myGLSurfaceView);
+        myGLRenderer = glView.getMyGLRenderer();
         mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
         mRotationVectorSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
         mAccelSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        myGLRenderer = new MyGLRenderer(this);
-        glView.setRenderer(myGLRenderer); // Use a custom renderer
-        this.setContentView(glView);                // This activity sets to GLSurfaceView
+//        glView.setRenderer(myGLRenderer); // Use a custom renderer
+//        this.setContentView(glView);                // This activity sets to GLSurfaceView
     }
 
     /*
@@ -180,6 +180,8 @@ public class DrawActivity extends Activity implements SensorEventListener {
         super.onPause();
         mSensorManager.unregisterListener(this);
         glView.onPause();
+//        CameraView camView = (CameraView) findViewById(R.id.cameraView);
+//        camView.releaseCamera();
     }
 
     @Override
@@ -192,6 +194,12 @@ public class DrawActivity extends Activity implements SensorEventListener {
         mSensorManager.registerListener(this, mRotationVectorSensor, 10000);
         mSensorManager.registerListener(this, mAccelSensor, SensorManager.SENSOR_DELAY_NORMAL);
         glView.onResume();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
     @Override
@@ -264,10 +272,10 @@ public class DrawActivity extends Activity implements SensorEventListener {
                 mLastY = y;
                 mLastZ = z;
 
-                if (deltaX > NOISE)
-                    myGLRenderer.getCube().setPosX(myGLRenderer.getCube().getPosX() - deltaX/10);
-                if (deltaY > NOISE)
-                    myGLRenderer.getCube().setPosY(myGLRenderer.getCube().getPosY() + deltaY/10);
+//                if (deltaX > NOISE)
+//                    myGLRenderer.getCube().setPosX(myGLRenderer.getCube().getPosX() - deltaX/10);
+//                if (deltaY > NOISE)
+//                    myGLRenderer.getCube().setPosY(myGLRenderer.getCube().getPosY() + deltaY/10);
                 //if (deltaZ > NOISE)
                 //   myGLRenderer.getCube().setPosZ(myGLRenderer.getCube().getPosZ() - deltaZ);
                 Log.i("FunPen", "x: " + deltaX);

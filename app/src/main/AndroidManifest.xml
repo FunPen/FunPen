@@ -39,7 +39,7 @@
             android:name=".DrawActivity"
             android:label="@string/title_activity_draw"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"></activity>
+            android:theme="@style/Theme.Transparent"></activity>
         <activity
             android:name=".AccountActivity"
             android:label="@string/title_activity_account" >

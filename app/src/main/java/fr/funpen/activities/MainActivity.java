@@ -1,6 +1,7 @@
 package fr.funpen.activities;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,8 +13,11 @@ import android.util.Log;
 import android.view.Display;
 import android.view.Menu;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 
+import fr.funpen.customViews.CameraView;
 import fr.funpen.customViews.User;
 import fr.funpen.dto.UserDto;
 import fr.stevecohen.eventBus.EventBus;
@@ -74,9 +78,9 @@ public class MainActivity extends Activity {
 	public void onBackgroundClicked(View v) {
         Log.i("FunPen", "Draw clicked");
         Intent drawActivity = new Intent(this, DrawActivity.class);
-        //ActivityOptions opts = ActivityOptions.makeCustomAnimation(funPenApp, R.anim.fade_out, R.anim.nothing);
-        //startActivity(drawActivity, opts.toBundle());
-		startActivity(drawActivity);
+        ActivityOptions opts = ActivityOptions.makeCustomAnimation(funPenApp, R.anim.fade_in, R.anim.nothing);
+        startActivity(drawActivity, opts.toBundle());
+//		startActivity(drawActivity);
     }
 
 	@Override
@@ -90,6 +94,34 @@ public class MainActivity extends Activity {
 		super.onResume();
 		funPenApp.setCurrentActivity(this);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
+        LinearLayout menu = (LinearLayout) findViewById(R.id.mainMenu_backgroundLayout);
+        menu.setAlpha(1);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        final LinearLayout menu = (LinearLayout) findViewById(R.id.mainMenu_backgroundLayout);
+        Animation fadeOut = AnimationUtils.loadAnimation(this, R.anim.fade_out);
+        // Now Set your animation
+        fadeOut.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                menu.setAlpha(0);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        menu.startAnimation(fadeOut);
+
     }
 
 	public static Point getDisplaySize(Activity context) {
