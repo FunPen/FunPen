@@ -9,7 +9,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,7 +40,6 @@ public class FriendListActivity extends Activity {
         setContentView(R.layout.activity_friend_list);
 
         myself = getIntent().getExtras().getParcelable("myself");
-
         Log.i("User", "User name in friendList = " + myself.getName());
 
         final ListView myListView = (ListView) findViewById(R.id.listView);
@@ -238,17 +239,57 @@ public class FriendListActivity extends Activity {
         return status;
     }
 
+    public String getID(View v){
+
+        String clickedID = null;
+        LinearLayout layoutCliked = (LinearLayout) v.getParent();
+        TextView userNameView = (TextView) layoutCliked.findViewById(R.id.textModule);
+        String clickedUsername = userNameView.getText().toString();
+
+        clientUsername = new RestClient(getResources().getString(R.string.localhost) + "/user/username/" + clickedUsername);
+
+        clientUsername.AddHeader("Authorization", "Bearer " + myself.getToken());
+        clientUsername.AddParam("username", clickedUsername);
+
+        try {
+            clientUsername.Execute(RestClient.RequestMethod.GET);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        int errorUsername = clientUsername.getResponseCode();
+        String responseUsername = clientUsername.getResponse();
+
+        if (errorUsername == 200) {
+            try {
+                JSONArray response = new JSONArray(responseUsername);
+                for (int i = 0; i < response.length(); i++) {
+                    JSONObject jsonobject = response.getJSONObject(i);
+                    String username = jsonobject.getString("username");
+                    if (username.equals(clickedUsername))
+                        clickedID = jsonobject.getString("id");
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        Log.i("Clicked ID","Clicked id = " + clickedID);
+        return (clickedID);
+    }
+
     public void addFriend(View v) {
         Log.i("AddFriend", "J'ai cliqué sur le bouton :)");
-        RestClient clientAddFriend = new RestClient(getResources().getString(R.string.localhost) + "/user/" + myself.getId() + "/friends/2");
 
-        Log.i("Addfriend", "Request = " + getResources().getString(R.string.localhost) + "/user/" + myself.getId() + "/friends/2");
+        RestClient clientAddFriend = new RestClient(getResources().getString(R.string.localhost) + "/user/" + myself.getId() + "/friends/" + getID(v));
+
+        Log.i("Addfriend", "Request = " + getResources().getString(R.string.localhost) + "/user/" + myself.getId() + "/friends/" + getID(v));
         Log.i("Addfriend", "user token = " + myself.getToken() + " & userID = " + myself.getId());
 
         clientAddFriend.AddHeader("Accept", "application/json");
         clientAddFriend.AddHeader("Authorization", "Bearer " + myself.getToken());
         clientAddFriend.AddParam("userId", myself.getId());
-        clientAddFriend.AddParam("friendId", "2");
+        clientAddFriend.AddParam("friendId", getID(v));
+
 
         try {
             clientAddFriend.Execute(RestClient.RequestMethod.POST);
