@@ -17,20 +17,19 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 
-import fr.funpen.customViews.CameraView;
 import fr.funpen.customViews.User;
 import fr.funpen.dto.UserDto;
 import fr.stevecohen.eventBus.EventBus;
 
 public class MainActivity extends Activity {
 
-	protected FunPenApp 	funPenApp;
-	private UserDto         user;
-	private EventBus		eventBus;
-    private User            myself;
+    protected FunPenApp funPenApp;
+    private UserDto user;
+    private EventBus eventBus;
+    private User myself;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -43,7 +42,7 @@ public class MainActivity extends Activity {
         Bundle extras = getIntent().getExtras();
 
         if (extras != null)
-            myself = getIntent().getExtras().getParcelable("myself") ;
+            myself = getIntent().getExtras().getParcelable("myself");
         else
             myself = new User("Unknow", "nobody@anonymous.eu", "notConnected");
 
@@ -53,29 +52,28 @@ public class MainActivity extends Activity {
     }
 
 
-
     public void onGalleryClicked(View v) {
-		Intent galleryActivity = new Intent(this, GalleryActivity.class);
+        Intent galleryActivity = new Intent(this, GalleryActivity.class);
         galleryActivity.putExtra("myself", myself);
         startActivity(galleryActivity);
     }
 
-	public void onCommunityClicked(View v) {
-        
+    public void onCommunityClicked(View v) {
+
         Intent communityActivity = new Intent(this, CommunityActivity.class);
         communityActivity.putExtra("myself", myself);
         startActivity(communityActivity);
-	}
+    }
 
-	public void onSettingsClicked(View v) {
-		Log.i("FunPen", "Settings clicked");
-		Intent setingsAct = new Intent(this, SettingsActivity.class);
-		//ActivityOptions opts = ActivityOptions.makeCustomAnimation(funPenApp, R.anim.slide_from_right, R.anim.nothing);
-		//startActivity(setingsAct, opts.toBundle());
+    public void onSettingsClicked(View v) {
+        Log.i("FunPen", "Settings clicked");
+        Intent setingsAct = new Intent(this, SettingsActivity.class);
+        //ActivityOptions opts = ActivityOptions.makeCustomAnimation(funPenApp, R.anim.slide_from_right, R.anim.nothing);
+        //startActivity(setingsAct, opts.toBundle());
         startActivity(setingsAct);
-	}
+    }
 
-	public void onBackgroundClicked(View v) {
+    public void onBackgroundClicked(View v) {
         Log.i("FunPen", "Draw clicked");
         Intent drawActivity = new Intent(this, DrawActivity.class);
         ActivityOptions opts = ActivityOptions.makeCustomAnimation(funPenApp, R.anim.fade_in, R.anim.nothing);
@@ -83,17 +81,17 @@ public class MainActivity extends Activity {
 //		startActivity(drawActivity);
     }
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
 
-	@Override
-	protected void onResume() {
-		super.onResume();
-		funPenApp.setCurrentActivity(this);
-		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        funPenApp.setCurrentActivity(this);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
         LinearLayout menu = (LinearLayout) findViewById(R.id.mainMenu_backgroundLayout);
         menu.setAlpha(1);
     }
@@ -124,12 +122,12 @@ public class MainActivity extends Activity {
 
     }
 
-	public static Point getDisplaySize(Activity context) {
-		Display display = context.getWindowManager().getDefaultDisplay();
-		Point size = new Point();
-		display.getSize(size);
-		return (size);
-	}
+    public static Point getDisplaySize(Activity context) {
+        Display display = context.getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        return (size);
+    }
 
     @Override
     public void onBackPressed() {

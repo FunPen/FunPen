@@ -33,4 +33,5 @@
     <string name="title_activity_community">CommunityActivity</string>
     <string name="title_activity_friend_list">FriendListActivity</string>
     <string name="title_activity_inscription">InscriptionActivity</string>
+    <string name="localhost">http://192.168.1.95:1337</string>
 </resources>

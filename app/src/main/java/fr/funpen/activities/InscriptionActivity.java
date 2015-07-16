@@ -17,32 +17,32 @@ import fr.funpen.services.RestClient;
 
 public class InscriptionActivity extends Activity {
 
-    private     EditText    MAIL;
-    private     EditText    PWD;
-    private     EditText    PSEUDO;
-    private     User        myself;
-    private     Toast       toast;
-    private     String      lastActivity;
+    private EditText MAIL;
+    private EditText PWD;
+    private EditText PSEUDO;
+    private User myself;
+    private Toast toast;
+    private String lastActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        myself =  getIntent().getExtras().getParcelable("myself");
+        myself = getIntent().getExtras().getParcelable("myself");
         lastActivity = myself.getLastActivity();
         setContentView(R.layout.activity_subscribe);
     }
 
-    public void onSubscribeClicked(View view){
+    public void onSubscribeClicked(View view) {
         MAIL = (EditText) findViewById(R.id.field_email);
         PWD = (EditText) findViewById(R.id.field_password);
         PSEUDO = (EditText) findViewById(R.id.field_pseudo);
         Context context = getApplicationContext();
 
-        RestClient client = new RestClient("http://192.168.1.95:1337/auth/local/register");
+        RestClient client = new RestClient(getResources().getString(R.string.localhost) + "/auth/local/register");
 
-        client.AddParam("username",PSEUDO.getText().toString());
-        client.AddParam("email",MAIL.getText().toString());
+        client.AddParam("username", PSEUDO.getText().toString());
+        client.AddParam("email", MAIL.getText().toString());
         client.AddParam("password", PWD.getText().toString());
 
         try {
@@ -58,14 +58,13 @@ public class InscriptionActivity extends Activity {
         Log.i("Inscription","error2 = " + error2);
         Log.i("Inscription","response = " + response);*/
 
-        if(error1 != 200){
+        if (error1 != 200) {
             CharSequence text = "L'inscription a échoué !";
             int duration = Toast.LENGTH_SHORT;
 
             toast = Toast.makeText(context, text, duration);
             toast.show();
-        }
-        else{
+        } else {
             try {
                 JSONObject reader = new JSONObject(response);
                 myself.setName(reader.getString("username"));
@@ -101,7 +100,7 @@ public class InscriptionActivity extends Activity {
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
                 Log.i("PressBack", "I'm Subscribe");
-                myself =  data.getExtras().getParcelable("myself");
+                myself = data.getExtras().getParcelable("myself");
                 Intent mainyActivity = new Intent(this, MainActivity.class);
 
                 if (myself.getConnected().equals("connected")) {

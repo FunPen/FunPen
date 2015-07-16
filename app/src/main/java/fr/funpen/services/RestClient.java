@@ -17,7 +17,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 
 /**
@@ -25,8 +24,8 @@ import java.util.ArrayList;
  */
 public class RestClient {
 
-    private ArrayList <NameValuePair> params;
-    private ArrayList <NameValuePair> headers;
+    private ArrayList<NameValuePair> params;
+    private ArrayList<NameValuePair> headers;
 
     private String url;
 
@@ -51,41 +50,32 @@ public class RestClient {
         return responseCode;
     }
 
-    public RestClient(String url)
-    {
+    public RestClient(String url) {
         this.url = url;
         params = new ArrayList<NameValuePair>();
         headers = new ArrayList<NameValuePair>();
     }
 
-    public void AddParam(String name, String value)
-    {
+    public void AddParam(String name, String value) {
         params.add(new BasicNameValuePair(name, value));
     }
 
-    public void AddHeader(String name, String value)
-    {
+    public void AddHeader(String name, String value) {
         headers.add(new BasicNameValuePair(name, value));
     }
 
-    public void Execute(RequestMethod method) throws Exception
-    {
-        switch(method) {
-            case GET:
-            {
+    public void Execute(RequestMethod method) throws Exception {
+        switch (method) {
+            case GET: {
                 //add parameters
                 String combinedParams = "";
-                if(!params.isEmpty()){
+                if (!params.isEmpty()) {
                     combinedParams += "?";
-                    for(NameValuePair p : params)
-                    {
-                        String paramString = p.getName() + "=" + URLEncoder.encode(p.getValue(),"UTF - 8");
-                        if(combinedParams.length() > 1)
-                        {
-                            combinedParams  +=  "&" + paramString;
-                        }
-                        else
-                        {
+                    for (NameValuePair p : params) {
+                        String paramString = p.getName() + "=" + p.getValue();
+                        if (combinedParams.length() > 1) {
+                            combinedParams += "&" + paramString;
+                        } else {
                             combinedParams += paramString;
                         }
                     }
@@ -94,25 +84,22 @@ public class RestClient {
                 HttpGet request = new HttpGet(url + combinedParams);
 
                 //add headers
-                for(NameValuePair h : headers)
-                {
+                for (NameValuePair h : headers) {
                     request.addHeader(h.getName(), h.getValue());
                 }
 
                 executeRequest(request, url);
                 break;
             }
-            case POST:
-            {
+            case POST: {
                 HttpPost request = new HttpPost(url);
 
                 //add headers
-                for(NameValuePair h : headers)
-                {
+                for (NameValuePair h : headers) {
                     request.addHeader(h.getName(), h.getValue());
                 }
 
-                if(!params.isEmpty()){
+                if (!params.isEmpty()) {
                     request.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
                 }
 
@@ -122,8 +109,7 @@ public class RestClient {
         }
     }
 
-    private void executeRequest(HttpUriRequest request, String url)
-    {
+    private void executeRequest(HttpUriRequest request, String url) {
         HttpClient client = new DefaultHttpClient();
 
         HttpResponse httpResponse;
@@ -144,7 +130,7 @@ public class RestClient {
                 instream.close();
             }
 
-        } catch (ClientProtocolException e)  {
+        } catch (ClientProtocolException e) {
             client.getConnectionManager().shutdown();
             e.printStackTrace();
         } catch (IOException e) {

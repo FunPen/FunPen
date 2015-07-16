@@ -12,40 +12,42 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import fr.funpen.services.RestClient;
 import fr.funpen.customViews.User;
+import fr.funpen.services.RestClient;
 
 public class LoginActivity extends Activity {
 
-    private     EditText    ID;
-    private     EditText    PWD;
-    private     Toast       toast;
-    private     User        myself;
-    private     String      lastActivity;
+    private EditText ID;
+    private EditText PWD;
+    private Toast toast;
+    private User myself;
+    private String lastActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        myself =  getIntent().getExtras().getParcelable("myself");
+        myself = getIntent().getExtras().getParcelable("myself");
         lastActivity = myself.getLastActivity();
         setContentView(R.layout.activity_login);
     }
 
-    public void onInscriptionClicked(View view){
+    public void onInscriptionClicked(View view) {
         Intent subscribeActivity = new Intent(this, InscriptionActivity.class);
         subscribeActivity.putExtra("myself", myself);
         startActivity(subscribeActivity);
     }
 
-    public void onLoginClicked(View view){
+    public void onLoginClicked(View view) {
         ID = (EditText) findViewById(R.id.field_email);
         PWD = (EditText) findViewById(R.id.field_password);
         Context context = getApplicationContext();
 
-        RestClient client = new RestClient("http://192.168.1.95:1337/auth/local");
+        Log.i("Localhost", getResources().getString(R.string.localhost));
 
-        client.AddParam("identifier",ID.getText().toString());
+        RestClient client = new RestClient(getResources().getString(R.string.localhost) + "/auth/local");
+
+        client.AddParam("identifier", ID.getText().toString());
         client.AddParam("password", PWD.getText().toString());
 
         try {
@@ -60,13 +62,12 @@ public class LoginActivity extends Activity {
         /*Log.i("Login","response = " + response);
         Log.i("FunPen", "error = " + error1);*/
 
-        if(error1 != 200){
+        if (error1 != 200) {
             CharSequence text = "La connexion a échoué !";
             int duration = Toast.LENGTH_SHORT;
             toast = Toast.makeText(context, text, duration);
             toast.show();
-        }
-        else{
+        } else {
             try {
                 JSONObject reader = new JSONObject(response);
                 myself.setName(reader.getString("username"));
@@ -101,7 +102,7 @@ public class LoginActivity extends Activity {
 
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
-                myself =  data.getExtras().getParcelable("myself");
+                myself = data.getExtras().getParcelable("myself");
                 Intent mainyActivity = new Intent(this, MainActivity.class);
 
                 if (myself.getConnected().equals("connected")) {

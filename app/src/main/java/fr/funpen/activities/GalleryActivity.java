@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -32,12 +31,12 @@ public class GalleryActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
 
-        myself =  getIntent().getExtras().getParcelable("myself");
+        myself = getIntent().getExtras().getParcelable("myself");
 
         TextView username = (TextView) findViewById(R.id.userNameGallery);
         username.setText("Gallerie de " + myself.getName());
 
-        GridView gridView = (GridView)findViewById(R.id.gridview);
+        GridView gridView = (GridView) findViewById(R.id.gridview);
         gridView.setAdapter(new MyAdapter(this));
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -79,13 +78,11 @@ public class GalleryActivity extends Activity {
         startActivity(accountActivity);
     }
 
-    private class MyAdapter extends BaseAdapter
-    {
+    private class MyAdapter extends BaseAdapter {
         private List<Item> items = new ArrayList<Item>();
         private LayoutInflater inflater;
 
-        public MyAdapter(Context context)
-        {
+        public MyAdapter(Context context) {
             inflater = LayoutInflater.from(context);
 
             items.add(new Item("Image 1", R.drawable.model1));
@@ -101,35 +98,31 @@ public class GalleryActivity extends Activity {
         }
 
         @Override
-        public Object getItem(int i)
-        {
+        public Object getItem(int i) {
             return items.get(i);
         }
 
         @Override
-        public long getItemId(int i)
-        {
+        public long getItemId(int i) {
             return items.get(i).drawableId;
         }
 
         @Override
-        public View getView(int i, View view, ViewGroup viewGroup)
-        {
+        public View getView(int i, View view, ViewGroup viewGroup) {
             View v = view;
             ImageView picture;
             TextView name;
 
-            if(v == null)
-            {
+            if (v == null) {
                 v = inflater.inflate(R.layout.gridview_item, viewGroup, false);
                 v.setTag(R.id.picture, v.findViewById(R.id.picture));
                 v.setTag(R.id.text, v.findViewById(R.id.text));
             }
 
-            picture = (ImageView)v.getTag(R.id.picture);
-            name = (TextView)v.getTag(R.id.text);
+            picture = (ImageView) v.getTag(R.id.picture);
+            name = (TextView) v.getTag(R.id.text);
 
-            Item item = (Item)getItem(i);
+            Item item = (Item) getItem(i);
 
             picture.setImageResource(item.drawableId);
             name.setText(item.name);
@@ -137,13 +130,11 @@ public class GalleryActivity extends Activity {
             return v;
         }
 
-        private class Item
-        {
+        private class Item {
             final String name;
             final int drawableId;
 
-            Item(String name, int drawableId)
-            {
+            Item(String name, int drawableId) {
                 this.name = name;
                 this.drawableId = drawableId;
             }

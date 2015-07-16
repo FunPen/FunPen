@@ -13,7 +13,7 @@ import fr.funpen.customViews.User;
 /**
  * Created by VAL on 26/03/2015.
  */
-public class CommunityActivity extends Activity{
+public class CommunityActivity extends Activity {
 
     private User myself;
 
@@ -21,10 +21,8 @@ public class CommunityActivity extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        myself =  getIntent().getExtras().getParcelable("myself");
-        Log.i("User","User name in community = " + myself.getName());
-
-
+        myself = getIntent().getExtras().getParcelable("myself");
+        Log.i("User", "User name in community = " + myself.getName());
 
         if (myself.getConnected().equals("notConnected")) {
             Intent loginActivity = new Intent(this, LoginActivity.class);
@@ -71,15 +69,14 @@ public class CommunityActivity extends Activity{
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
                 Log.i("PressBack", "I'm back in community");
-                myself =  data.getExtras().getParcelable("myself");
+                myself = data.getExtras().getParcelable("myself");
                 Intent mainyActivity = new Intent(this, MainActivity.class);
 
                 if (myself.getConnected().equals("connected")) {
                     Log.i("Connection", "I'M IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIN");
                     mainyActivity.putExtra("myself", myself);
                     startActivity(mainyActivity);
-                }
-                else{
+                } else {
                     Intent mainActivity = new Intent(this, MainActivity.class);
                     mainActivity.putExtra("myself", myself);
                     startActivityForResult(mainActivity, 1);

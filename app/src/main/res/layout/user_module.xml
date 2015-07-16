@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FriendListActivity">
 
     <LinearLayout
         android:orientation="horizontal"
@@ -13,7 +16,7 @@
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:id="@+id/imageView2"
+            android:id="@+id/imageView3"
             android:src="@drawable/android_avatar"/>
 
         <TextView
@@ -22,24 +25,22 @@
             android:gravity="center"
             android:textColor="#ffffff"
             android:inputType="textPersonName"
-            android:text="Je suis un ami à toi"
+            android:text="Je suis un utilisateur"
             android:ems="10"
             android:id="@+id/textModule" />
 
-        <ImageView
-            android:layout_width="50dp"
+        <FrameLayout
+            android:layout_width="fill_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:id="@+id/imageButton4"
-            android:src="@drawable/moins"
-            android:onClick="deleteFriend"/>
+            android:onClick="addFriend">
+            <ImageView
+               android:layout_width="30dp"
+               android:layout_height="30dp"
+               android:layout_gravity="center"
+               android:id="@+id/imageButton6"
+               android:src="@drawable/plus"/>
+        </FrameLayout>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="left"
-            android:id="@+id/imageButton5"
-            android:src="@drawable/gallery_icon"/>
     </LinearLayout>
 
 </LinearLayout>

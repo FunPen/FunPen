@@ -18,18 +18,18 @@ import fr.funpen.services.RestClient;
 
 public class AccountActivity extends Activity {
 
-    private FunPenApp   funPenApp;
-    private User        myself;
-    private EditText    username;
-    private EditText    mail;
-    private Toast       toast;
+    private FunPenApp funPenApp;
+    private User myself;
+    private EditText username;
+    private EditText mail;
+    private Toast toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
 
-        myself =  getIntent().getExtras().getParcelable("myself");
+        myself = getIntent().getExtras().getParcelable("myself");
 
         username = (EditText) findViewById(R.id.userNameAccount);
         mail = (EditText) findViewById(R.id.mailAccount);
@@ -38,7 +38,7 @@ public class AccountActivity extends Activity {
         mail.setText(myself.getMail());
 
         Log.i("FunPen", "[Account] Building");
-        funPenApp = (FunPenApp)this.getApplicationContext();
+        funPenApp = (FunPenApp) this.getApplicationContext();
     }
 
     @Override
@@ -70,7 +70,7 @@ public class AccountActivity extends Activity {
     public void onEditClicked(View v) {
 
         Context context = getApplicationContext();
-        RestClient client = new RestClient("http://192.168.1.95:1337/user/" + myself.getId());
+        RestClient client = new RestClient(getResources().getString(R.string.localhost) + "/user/" + myself.getId());
 
         client.AddHeader("Authorization", "Bearer " + myself.getToken());
 
@@ -88,13 +88,12 @@ public class AccountActivity extends Activity {
         int error1 = client.getResponseCode();
         String response = client.getResponse();
 
-        if(error1 != 200){
+        if (error1 != 200) {
             CharSequence text = "L'édition de votre profil a échoué !";
             int duration = Toast.LENGTH_SHORT;
             toast = Toast.makeText(context, text, duration);
             toast.show();
-        }
-        else {
+        } else {
             try {
                 JSONObject reader = new JSONObject(response);
                 myself.setName(reader.getString("username"));

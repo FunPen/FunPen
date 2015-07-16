@@ -10,25 +10,22 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 
-        <android.inputmethodservice.ExtractEditText
+        <EditText
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="#767B81"
-            android:text="test"
+            android:hint="Search your friends"
+            android:textColorHint="#000000"
             android:textSize="30sp"
+            android:inputType="textEmailAddress"
             android:id="@+id/extractEditText" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add item"
-            android:id="@+id/button" />
 
         <ListView
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:id="@+id/listView"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"/>
     </LinearLayout>
 
 </RelativeLayout>

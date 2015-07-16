@@ -18,34 +18,33 @@ import android.widget.RelativeLayout;
 
 import fr.funpen.camera.MyGLRenderer;
 import fr.funpen.camera.MyGLSurfaceView;
-import fr.funpen.customViews.CameraView;
 
 
 public class DrawActivity extends Activity implements SensorEventListener {
 
-    protected FunPenApp             funPenApp;
+    protected FunPenApp funPenApp;
 
     /* Bottom Menu*/
-    private float                   oldFingerY;
-    private float                   oldFingerX;
-    private boolean                 bottomMenuAnimating;
-    private boolean                 bottomMenuOpened;
+    private float oldFingerY;
+    private float oldFingerX;
+    private boolean bottomMenuAnimating;
+    private boolean bottomMenuOpened;
 
     /* Flash */
-    private boolean                 isLightTurnedOn;
+    private boolean isLightTurnedOn;
 
     // OpenGl
-    private MyGLRenderer            myGLRenderer;
-    private MyGLSurfaceView         glView;   // Use GLSurfaceView
+    private MyGLRenderer myGLRenderer;
+    private MyGLSurfaceView glView;   // Use GLSurfaceView
 
-    private SensorManager           mSensorManager;
-    private Sensor                  mRotationVectorSensor;
-    private Sensor                  mAccelSensor;
-    private boolean                 mInitialized = false;
-    private static final float      NOISE = 0.25f;
+    private SensorManager mSensorManager;
+    private Sensor mRotationVectorSensor;
+    private Sensor mAccelSensor;
+    private boolean mInitialized = false;
+    private static final float NOISE = 0.25f;
 
-    private float                   mLastX, mLastY, mLastZ;
-    private float                   prevX = 0, prevY = 0;
+    private float mLastX, mLastY, mLastZ;
+    private float prevX = 0, prevY = 0;
 
 
     @Override
@@ -68,7 +67,7 @@ public class DrawActivity extends Activity implements SensorEventListener {
         // OpenGL
         glView = (MyGLSurfaceView) findViewById(R.id.myGLSurfaceView);
         myGLRenderer = glView.getMyGLRenderer();
-        mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
+        mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         mRotationVectorSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
         mAccelSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 //        glView.setRenderer(myGLRenderer); // Use a custom renderer
@@ -218,7 +217,7 @@ public class DrawActivity extends Activity implements SensorEventListener {
 
             prevX = x;
             prevY = y;
-        }else if (event.getPointerCount() == 1 && event.getAction() == MotionEvent.ACTION_MOVE) {
+        } else if (event.getPointerCount() == 1 && event.getAction() == MotionEvent.ACTION_MOVE) {
             float x = event.getX(0);
             float y = event.getY(0);
 
