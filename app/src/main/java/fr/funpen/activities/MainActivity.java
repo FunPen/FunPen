@@ -59,7 +59,6 @@ public class MainActivity extends Activity {
     }
 
     public void onCommunityClicked(View v) {
-
         Intent communityActivity = new Intent(this, CommunityActivity.class);
         communityActivity.putExtra("myself", myself);
         startActivity(communityActivity);
@@ -75,6 +74,22 @@ public class MainActivity extends Activity {
 
     public void onBackgroundClicked(View v) {
         Log.i("FunPen", "Draw clicked");
+
+        final LinearLayout menu = (LinearLayout) findViewById(R.id.mainMenu_backgroundLayout);
+        Animation fadeOut = AnimationUtils.loadAnimation(this, R.anim.fade_out);
+        // Now Set your animation
+        fadeOut.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {}
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                menu.setAlpha(0);
+            }
+            @Override
+            public void onAnimationRepeat(Animation animation) {}
+        });
+        menu.startAnimation(fadeOut);
+
         Intent drawActivity = new Intent(this, DrawActivity.class);
         ActivityOptions opts = ActivityOptions.makeCustomAnimation(funPenApp, R.anim.fade_in, R.anim.nothing);
         startActivity(drawActivity, opts.toBundle());
@@ -99,27 +114,6 @@ public class MainActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-        final LinearLayout menu = (LinearLayout) findViewById(R.id.mainMenu_backgroundLayout);
-        Animation fadeOut = AnimationUtils.loadAnimation(this, R.anim.fade_out);
-        // Now Set your animation
-        fadeOut.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                menu.setAlpha(0);
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-        menu.startAnimation(fadeOut);
-
     }
 
     public static Point getDisplaySize(Activity context) {

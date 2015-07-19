@@ -54,6 +54,7 @@ public class CommunityActivity extends Activity {
         startActivity(friendListActivity);
     }
 
+    @Override
     public void onBackPressed() {
         // super.onBackPressed();
         Log.i("PressBack", "Pressback clicked on community");
@@ -77,9 +78,7 @@ public class CommunityActivity extends Activity {
                     mainyActivity.putExtra("myself", myself);
                     startActivity(mainyActivity);
                 } else {
-                    Intent mainActivity = new Intent(this, MainActivity.class);
-                    mainActivity.putExtra("myself", myself);
-                    startActivityForResult(mainActivity, 1);
+                    onBackPressed();
                 }
             }
         }
