@@ -133,10 +133,12 @@ public class MainActivity extends Activity {
                 .setPositiveButton(R.string.mainMenu_exit_popup_yes,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                Intent minimize = new Intent(Intent.ACTION_MAIN);
-                                minimize.addCategory(Intent.CATEGORY_HOME);
-                                minimize.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(minimize);
+                                int p = android.os.Process.myPid();
+                                android.os.Process.killProcess(p);
+//                                Intent minimize = new Intent(Intent.ACTION_MAIN);
+//                                minimize.addCategory(Intent.CATEGORY_HOME);
+//                                minimize.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                                startActivity(minimize);
                             }
                         })
                 .setNegativeButton(R.string.mainMenu_exit_popup_no, new DialogInterface.OnClickListener() {
