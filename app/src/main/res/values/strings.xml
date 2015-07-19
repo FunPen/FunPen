@@ -8,6 +8,10 @@
     <string name="mainMenu_clickToDraw">Touch to start drawing</string>
     <string name="mainMenu_gallery">GALLERY</string>
     <string name="mainMenu_account">COMMUNITY</string>
+    <string name="mainMenu_exit_popup_title">Exit Application ?</string>
+    <string name="mainMenu_exit_popup_message">Click yes to exit !</string>
+    <string name="mainMenu_exit_popup_yes">Yes</string>
+    <string name="mainMenu_exit_popup_no">No</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_account">AccountActivity</string>
     <string name="title_activity_login">LoginActivity</string>

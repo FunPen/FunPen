@@ -126,11 +126,11 @@ public class MainActivity extends Activity {
     @Override
     public void onBackPressed() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setTitle("Exit Application?");
+        alertDialogBuilder.setTitle(R.string.mainMenu_exit_popup_title);
         alertDialogBuilder
-                .setMessage("Click yes to exit!")
+                .setMessage(R.string.mainMenu_exit_popup_message)
                 .setCancelable(false)
-                .setPositiveButton("Yes",
+                .setPositiveButton(R.string.mainMenu_exit_popup_yes,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 Intent minimize = new Intent(Intent.ACTION_MAIN);
@@ -139,7 +139,7 @@ public class MainActivity extends Activity {
                                 startActivity(minimize);
                             }
                         })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.mainMenu_exit_popup_no, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
                     }
