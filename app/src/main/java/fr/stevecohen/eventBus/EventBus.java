@@ -13,7 +13,7 @@ import java.util.Map.Entry;
  */
 public class EventBus {
 
-    private boolean	isDispatching = false;
+    private boolean isDispatching = false;
     private static EventBus instance = null;
     private Map<String, List<EventCallback>> watchers = new HashMap<>();
 
@@ -32,9 +32,8 @@ public class EventBus {
     }
 
     /**
-     * @param events		The name of events you want to listen separated by ";"
-     * @param eventCallback	The function witch will be called when event is fired
-     *
+     * @param events        The name of events you want to listen separated by ";"
+     * @param eventCallback The function witch will be called when event is fired
      * @see EventBus.EventCallback
      */
     public void on(String events, final EventCallback eventCallback) {
@@ -46,7 +45,7 @@ public class EventBus {
                 }
                 watchersToAddSafely.get(eventName).add(eventCallback);
             }
-        }else {
+        } else {
             for (String eventName : eventsArray) {
                 if (!watchers.containsKey(eventName)) {
                     watchers.put(eventName, new ArrayList<EventCallback>());
@@ -57,10 +56,9 @@ public class EventBus {
     }
 
     /**
-     *
-     * @param event		The event you want to dispatch
-     * @param arg		An optional argument you can send to the listener callback
-     * @return			True if the event have one or more listener
+     * @param event The event you want to dispatch
+     * @param arg   An optional argument you can send to the listener callback
+     * @return True if the event have one or more listener
      */
     public boolean dispatch(String event, Object arg) {
         isDispatching = true;
@@ -102,11 +100,12 @@ public class EventBus {
 
     /**
      * Callback class used for EventBus
-     * @author Steve Cohen
      *
+     * @author Steve Cohen
      */
     public static abstract class EventCallback {
         private boolean delete = false;
+
         public abstract void call(Object argument);
 
         public void destroyCallback() {

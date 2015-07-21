@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -13,13 +11,13 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import fr.funpen.customViews.User;
+import fr.funpen.dto.UserDto;
 import fr.funpen.services.RestClient;
 
 public class AccountActivity extends Activity {
 
     private FunPenApp funPenApp;
-    private User myself;
+    private UserDto user;
     private EditText username;
     private EditText mail;
     private Toast toast;
@@ -29,29 +27,18 @@ public class AccountActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
 
-        myself = getIntent().getExtras().getParcelable("myself");
-
+        funPenApp = (FunPenApp) this.getApplicationContext();
+        user = UserDto.getInstance();
         username = (EditText) findViewById(R.id.userNameAccount);
         mail = (EditText) findViewById(R.id.mailAccount);
 
-        username.setText(myself.getName());
-        mail.setText(myself.getMail());
-
-        Log.i("FunPen", "[Account] Building");
-        funPenApp = (FunPenApp) this.getApplicationContext();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.account, menu);
-        return true;
+        username.setText(user.getPseudo());
+        mail.setText(user.getMail());
     }
 
     @Override
     public void onBackPressed() {
-        // super.onBackPressed();
         Intent intent = new Intent();
-        intent.putExtra("myself", myself);
         setResult(RESULT_OK, intent);
         finish();
     }
@@ -70,11 +57,11 @@ public class AccountActivity extends Activity {
     public void onEditClicked(View v) {
 
         Context context = getApplicationContext();
-        RestClient client = new RestClient(getResources().getString(R.string.localhost) + "/user/" + myself.getId());
+        RestClient client = new RestClient(getResources().getString(R.string.localhost) + "/user/" + user.getId());
 
-        client.AddHeader("Authorization", "Bearer " + myself.getToken());
+        client.AddHeader("Authorization", "Bearer " + user.getToken());
 
-        client.AddParam("id", myself.getId());
+        client.AddParam("id", user.getId());
         client.AddParam("username", username.getText().toString());
         client.AddParam("email", mail.getText().toString());
 
@@ -85,29 +72,27 @@ public class AccountActivity extends Activity {
             e.printStackTrace();
         }
 
-        int error1 = client.getResponseCode();
+        int error = client.getResponseCode();
         String response = client.getResponse();
 
-        if (error1 != 200) {
-            CharSequence text = "L'édition de votre profil a échoué !";
+        if (error != 200) {
+            CharSequence text = "Edit fail";
             int duration = Toast.LENGTH_SHORT;
             toast = Toast.makeText(context, text, duration);
             toast.show();
         } else {
             try {
                 JSONObject reader = new JSONObject(response);
-                myself.setName(reader.getString("username"));
-                myself.setMail(reader.getString("email"));
+                user.setPseudo(reader.getString("username"));
+                user.setMail(reader.getString("email"));
+
+                CharSequence text = "Edit worked";
+                int duration = Toast.LENGTH_SHORT;
+                toast = Toast.makeText(context, text, duration);
+                toast.show();
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
-
-        Log.i("Account", "error = " + error1);
-        Log.i("Account", "response = " + response);
-
-        Intent mainActivity = new Intent(this, MainActivity.class);
-        mainActivity.putExtra("myself", myself);
-        startActivity(mainActivity);
     }
 }

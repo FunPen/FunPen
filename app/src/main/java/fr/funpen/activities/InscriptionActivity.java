@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -12,7 +11,7 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import fr.funpen.customViews.User;
+import fr.funpen.dto.UserDto;
 import fr.funpen.services.RestClient;
 
 public class InscriptionActivity extends Activity {
@@ -20,16 +19,22 @@ public class InscriptionActivity extends Activity {
     private EditText MAIL;
     private EditText PWD;
     private EditText PSEUDO;
-    private User myself;
+    private UserDto user;
     private Toast toast;
     private String lastActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle extras = getIntent().getExtras();
 
-        myself = getIntent().getExtras().getParcelable("myself");
-        lastActivity = myself.getLastActivity();
+        if (extras == null)
+            lastActivity = null;
+        else
+            lastActivity = extras.getString("lastActivity");
+
+
+        user = UserDto.getInstance();
         setContentView(R.layout.activity_subscribe);
     }
 
@@ -51,64 +56,35 @@ public class InscriptionActivity extends Activity {
             e.printStackTrace();
         }
 
-        int error1 = client.getResponseCode();
+        int error = client.getResponseCode();
         String response = client.getResponse();
 
-        /*Log.i("Inscription","error1 = " + error1);
-        Log.i("Inscription","error2 = " + error2);
-        Log.i("Inscription","response = " + response);*/
-
-        if (error1 != 200) {
+        if (error != 200) {
             CharSequence text = "L'inscription a échoué !";
             int duration = Toast.LENGTH_SHORT;
-
             toast = Toast.makeText(context, text, duration);
             toast.show();
         } else {
             try {
                 JSONObject reader = new JSONObject(response);
-                myself.setName(reader.getString("username"));
-                myself.setMail(reader.getString("email"));
-                myself.setToken(reader.getString("token"));
-                myself.setId(reader.getString("id"));
+                user.setPseudo(reader.getString("username"));
+                user.setMail(reader.getString("email"));
+                user.setToken(reader.getString("token"));
+                user.setId(reader.getString("id"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
-            myself.setConnected("connected");
+            user.setLogged(true);
             if (lastActivity.equals("communityActivity")) {
                 Intent communityActivity = new Intent(this, CommunityActivity.class);
-                myself.setLastActivity("null");
-                communityActivity.putExtra("myself", myself);
-                startActivityForResult(communityActivity, 1);
+                startActivity(communityActivity);
             }
         }
     }
 
     public void onBackPressed() {
-        // super.onBackPressed();
-        Log.i("PressBack", "Pressback clicked on inscription");
         Intent intent = new Intent();
-        intent.putExtra("myself", myself);
         setResult(RESULT_OK, intent);
         finish();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        if (requestCode == 1) {
-            if (resultCode == RESULT_OK) {
-                Log.i("PressBack", "I'm Subscribe");
-                myself = data.getExtras().getParcelable("myself");
-                Intent mainyActivity = new Intent(this, MainActivity.class);
-
-                if (myself.getConnected().equals("connected")) {
-                    Log.i("Connection", "I'M IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIN");
-                    mainyActivity.putExtra("myself", myself);
-                    startActivity(mainyActivity);
-                }
-            }
-        }
     }
 }

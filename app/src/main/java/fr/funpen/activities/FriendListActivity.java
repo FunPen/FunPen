@@ -1,17 +1,17 @@
 package fr.funpen.activities;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,30 +22,33 @@ import java.util.List;
 
 import fr.funpen.customViews.CustomAdapter;
 import fr.funpen.customViews.ListViewItem;
-import fr.funpen.customViews.User;
+import fr.funpen.dto.UserDto;
 import fr.funpen.services.RestClient;
 
 public class FriendListActivity extends Activity {
 
-    private User myself;
+    private UserDto user;
+    private FunPenApp funPenApp;
     private RestClient clientUsername;
     private RestClient clientMail;
     private RestClient clientInfoUser;
     private List<ListViewItem> userList;
     private CustomAdapter customAdapter;
+    private EditText searchField;
+    private Toast toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend_list);
 
-        myself = getIntent().getExtras().getParcelable("myself");
-        Log.i("User", "User name in friendList = " + myself.getName());
+        funPenApp = (FunPenApp) this.getApplicationContext();
+        user = UserDto.getInstance();
 
         final ListView myListView = (ListView) findViewById(R.id.listView);
-        final EditText searchField = (EditText) findViewById(R.id.extractEditText);
+        searchField = (EditText) findViewById(R.id.extractEditText);
 
-        userList = new ArrayList<ListViewItem>();
+        userList = new ArrayList<>();
         customAdapter = new CustomAdapter(this, R.id.textModule, userList);
         myListView.setAdapter(customAdapter);
 
@@ -69,13 +72,11 @@ public class FriendListActivity extends Activity {
                 customAdapter.notifyDataSetChanged();
                 if (s.length() != 0) {
 
-                    Log.i("Contact", "On text changed = " + searchField.getText());
-
                     clientUsername = new RestClient(getResources().getString(R.string.localhost) + "/user/username/" + searchField.getText());
                     clientMail = new RestClient(getResources().getString(R.string.localhost) + "/user/email/" + searchField.getText());
 
-                    clientUsername.AddHeader("Authorization", "Bearer " + myself.getToken());
-                    clientMail.AddHeader("Authorization", "Bearer " + myself.getToken());
+                    clientUsername.AddHeader("Authorization", "Bearer " + user.getToken());
+                    clientMail.AddHeader("Authorization", "Bearer " + user.getToken());
 
                     clientUsername.AddParam("username", searchField.getText().toString());
                     clientMail.AddParam("email", searchField.getText().toString());
@@ -83,6 +84,8 @@ public class FriendListActivity extends Activity {
                     try {
                         clientUsername.Execute(RestClient.RequestMethod.GET);
                         clientMail.Execute(RestClient.RequestMethod.GET);
+
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -92,12 +95,6 @@ public class FriendListActivity extends Activity {
 
                     int errorMail = clientMail.getResponseCode();
                     String responseMail = clientMail.getResponse();
-
-                    Log.i("Username", "errorUsername = " + errorUsername);
-                    Log.i("Username", "responseUsername = " + responseUsername);
-
-                    Log.i("Mail", "errorMail = " + errorMail);
-                    Log.i("Mail", "responseMail = " + responseMail);
 
                     if (errorUsername == 200) {
                         try {
@@ -110,11 +107,10 @@ public class FriendListActivity extends Activity {
                                 else if (checkFriendList(username).equals("friendOf"))
                                     userList.add(new ListViewItem(username, CustomAdapter.NOTFRIENDYET));
                                 else {
-                                    if (!myself.getName().equals(username))
+                                    if (!user.getPseudo().equals(username))
                                         userList.add(new ListViewItem(username, CustomAdapter.USER));
                                 }
                                 customAdapter.notifyDataSetChanged();
-                                Log.i("Contact", "Username contact = " + username);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -131,11 +127,10 @@ public class FriendListActivity extends Activity {
                                 else if (checkFriendList(username).equals("friendOf"))
                                     userList.add(new ListViewItem(username, CustomAdapter.NOTFRIENDYET));
                                 else {
-                                    if (!myself.getName().equals(username))
+                                    if (!user.getPseudo().equals(username))
                                         userList.add(new ListViewItem(username, CustomAdapter.USER));
                                 }
                                 customAdapter.notifyDataSetChanged();
-                                Log.i("Contact", "Mail contact = " + username);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -147,33 +142,12 @@ public class FriendListActivity extends Activity {
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.friend_list, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     public void updateFriendsLayout() {
 
-        Log.i("Update friendsLayout", "Get FriendList");
+        clientInfoUser = new RestClient(getResources().getString(R.string.localhost) + "/user/" + user.getId());
 
-        clientInfoUser = new RestClient(getResources().getString(R.string.localhost) + "/user/" + myself.getId());
-
-        clientInfoUser.AddHeader("Authorization", "Bearer " + myself.getToken());
-        clientInfoUser.AddParam("id", myself.getId());
+        clientInfoUser.AddHeader("Authorization", "Bearer " + user.getToken());
+        clientInfoUser.AddParam("id", user.getId());
 
         try {
             clientInfoUser.Execute(RestClient.RequestMethod.GET);
@@ -183,9 +157,6 @@ public class FriendListActivity extends Activity {
 
         int error = clientInfoUser.getResponseCode();
         String response = clientInfoUser.getResponse();
-
-        Log.i("Update", "error = " + error);
-        Log.i("Update", "response = " + response);
 
         if (error == 200) {
             try {
@@ -198,11 +169,10 @@ public class FriendListActivity extends Activity {
                     String id = jsonobject.getString("id");
                     userList.add(new ListViewItem(username, CustomAdapter.FRIEND));
                     customAdapter.notifyDataSetChanged();
-                    Log.i("Contact", "Friend user = " + username);
 
                     if (!checkFriendList(username).equals("friend")) {
-                        myself.setFriends(username);
-                        myself.setFriends(id);
+                        user.addFriends(username);
+                        user.addFriends(id);
                     }
                 }
                 for (int i = 0; i < userFriendsOf.length(); i++) {
@@ -211,11 +181,10 @@ public class FriendListActivity extends Activity {
                     String id = jsonobject.getString("id");
                     userList.add(new ListViewItem(username, CustomAdapter.NOTFRIENDYET));
                     customAdapter.notifyDataSetChanged();
-                    Log.i("Contact", "FriendOf user = " + username);
 
                     if (!checkFriendList(username).equals("friendOf")) {
-                        myself.setFriendsOf(username);
-                        myself.setFriendsOf(id);
+                        user.addFriendsOf(username);
+                        user.addFriendsOf(id);
                     }
                 }
             } catch (JSONException e) {
@@ -228,18 +197,18 @@ public class FriendListActivity extends Activity {
 
         String status = "unknow";
 
-        for (int i = 0; i < myself.getFriends().size(); i += 2) {
-            if (myself.getFriends().get(i).equals(username))
+        for (int i = 0; i < user.getFriends().size(); i += 2) {
+            if (user.getFriends().get(i).equals(username))
                 status = "friend";
         }
-        for (int i = 0; i < myself.getFriendsOf().size(); i += 2) {
-            if (myself.getFriendsOf().get(i).equals(username))
+        for (int i = 0; i < user.getFriendsOf().size(); i += 2) {
+            if (user.getFriendsOf().get(i).equals(username))
                 status = "friendOf";
         }
         return status;
     }
 
-    public String getID(View v){
+    public String getID(View v) {
 
         String clickedID = null;
         LinearLayout layoutCliked = (LinearLayout) v.getParent();
@@ -248,7 +217,7 @@ public class FriendListActivity extends Activity {
 
         clientUsername = new RestClient(getResources().getString(R.string.localhost) + "/user/username/" + clickedUsername);
 
-        clientUsername.AddHeader("Authorization", "Bearer " + myself.getToken());
+        clientUsername.AddHeader("Authorization", "Bearer " + user.getToken());
         clientUsername.AddParam("username", clickedUsername);
 
         try {
@@ -273,23 +242,17 @@ public class FriendListActivity extends Activity {
                 e.printStackTrace();
             }
         }
-        Log.i("Clicked ID","Clicked id = " + clickedID);
         return (clickedID);
     }
 
     public void addFriend(View v) {
-        Log.i("AddFriend", "J'ai cliqué sur le bouton :)");
 
-        RestClient clientAddFriend = new RestClient(getResources().getString(R.string.localhost) + "/user/" + myself.getId() + "/friends/" + getID(v));
-
-        Log.i("Addfriend", "Request = " + getResources().getString(R.string.localhost) + "/user/" + myself.getId() + "/friends/" + getID(v));
-        Log.i("Addfriend", "user token = " + myself.getToken() + " & userID = " + myself.getId());
+        RestClient clientAddFriend = new RestClient(getResources().getString(R.string.localhost) + "/user/" + user.getId() + "/friends/" + getID(v));
 
         clientAddFriend.AddHeader("Accept", "application/json");
-        clientAddFriend.AddHeader("Authorization", "Bearer " + myself.getToken());
-        clientAddFriend.AddParam("userId", myself.getId());
+        clientAddFriend.AddHeader("Authorization", "Bearer " + user.getToken());
+        clientAddFriend.AddParam("userId", user.getId());
         clientAddFriend.AddParam("friendId", getID(v));
-
 
         try {
             clientAddFriend.Execute(RestClient.RequestMethod.POST);
@@ -300,21 +263,28 @@ public class FriendListActivity extends Activity {
         int error = clientAddFriend.getResponseCode();
         String response = clientAddFriend.getResponse();
 
-        Log.i("Addfriend", "error = " + error);
-        Log.i("Addfriend", "response = " + response);
-
         if (error == 200) {
             try {
                 JSONObject reader = new JSONObject(response);
-                myself.setFriends(reader.getString("username"));
-                myself.setFriends(reader.getString("id"));
+                user.addFriends(reader.getString("username"));
+                user.addFriends(reader.getString("id"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        } else {
+            Context context = getApplicationContext();
+            CharSequence text = "Add friend fail !";
+            int duration = Toast.LENGTH_SHORT;
+            toast = Toast.makeText(context, text, duration);
+            toast.show();
         }
+        searchField.setText("");
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(searchField.getWindowToken(), 0);
+        updateFriendsLayout();
     }
 
     public void deleteFriend(View v) {
-        //pas encore implémenté coté serveur
+        //TODO A implémenter côté serveur
     }
 }

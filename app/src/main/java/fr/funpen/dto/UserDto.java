@@ -2,18 +2,22 @@ package fr.funpen.dto;
 
 import android.media.Image;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class UserDto {
 
     private String pseudo;
-    private String address;
-    private String phone;
+    private String mail;
     private Image avatar;
+    private String token;
+    private String id;
+    private List<String> friends;
+    private List<String> friendsOf;
 
     private boolean logged = false;
 
     private static UserDto instance = null;
-    ;
-
 
     private UserDto() {
 
@@ -26,7 +30,14 @@ public class UserDto {
     }
 
     public void init() {
-        //TODO init all var from JSON object ?
+        pseudo = "unknow";
+        mail = "unknow@anonymous.world";
+        avatar = null;
+        logged = false;
+        token = null;
+        id = null;
+        friends = new ArrayList<>();
+        friendsOf = new ArrayList<>();
     }
 
     public String getPseudo() {
@@ -37,20 +48,12 @@ public class UserDto {
         this.pseudo = pseudo;
     }
 
-    public String getAddress() {
-        return address;
+    public String getMail() {
+        return mail;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
     public Image getAvatar() {
@@ -69,4 +72,35 @@ public class UserDto {
         this.logged = logged;
     }
 
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public List<String> getFriends() {
+        return friends;
+    }
+
+    public void addFriends(String friend) {
+        this.friends.add(friend);
+    }
+
+    public List<String> getFriendsOf() {
+        return friendsOf;
+    }
+
+    public void addFriendsOf(String friend) {
+        this.friendsOf.add(friend);
+    }
 }

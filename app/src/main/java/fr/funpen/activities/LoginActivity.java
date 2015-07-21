@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -12,7 +11,7 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import fr.funpen.customViews.User;
+import fr.funpen.dto.UserDto;
 import fr.funpen.services.RestClient;
 
 public class LoginActivity extends Activity {
@@ -20,21 +19,26 @@ public class LoginActivity extends Activity {
     private EditText ID;
     private EditText PWD;
     private Toast toast;
-    private User myself;
     private String lastActivity;
+    private UserDto user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle extras = getIntent().getExtras();
+        if (extras == null)
+            lastActivity = null;
+        else
+            lastActivity = extras.getString("lastActivity");
 
-        myself = getIntent().getExtras().getParcelable("myself");
-        lastActivity = myself.getLastActivity();
+
+        user = UserDto.getInstance();
         setContentView(R.layout.activity_login);
     }
 
     public void onInscriptionClicked(View view) {
         Intent subscribeActivity = new Intent(this, InscriptionActivity.class);
-        subscribeActivity.putExtra("myself", myself);
+        subscribeActivity.putExtra("lastActivity", lastActivity);
         startActivity(subscribeActivity);
     }
 
@@ -42,8 +46,6 @@ public class LoginActivity extends Activity {
         ID = (EditText) findViewById(R.id.field_email);
         PWD = (EditText) findViewById(R.id.field_password);
         Context context = getApplicationContext();
-
-        Log.i("Localhost", getResources().getString(R.string.localhost));
 
         RestClient client = new RestClient(getResources().getString(R.string.localhost) + "/auth/local");
 
@@ -56,13 +58,10 @@ public class LoginActivity extends Activity {
             e.printStackTrace();
         }
 
-        int error1 = client.getResponseCode();
+        int error = client.getResponseCode();
         String response = client.getResponse();
 
-        /*Log.i("Login","response = " + response);
-        Log.i("FunPen", "error = " + error1);*/
-
-        if (error1 != 200) {
+        if (error != 200) {
             CharSequence text = "La connexion a échoué !";
             int duration = Toast.LENGTH_SHORT;
             toast = Toast.makeText(context, text, duration);
@@ -70,46 +69,25 @@ public class LoginActivity extends Activity {
         } else {
             try {
                 JSONObject reader = new JSONObject(response);
-                myself.setName(reader.getString("username"));
-                myself.setMail(reader.getString("email"));
-                myself.setToken(reader.getString("token"));
-                myself.setId(reader.getString("id"));
+                user.setPseudo(reader.getString("username"));
+                user.setMail(reader.getString("email"));
+                user.setToken(reader.getString("token"));
+                user.setId(reader.getString("id"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
-            myself.setConnected("connected");
+            user.setLogged(true);
             if (lastActivity.equals("communityActivity")) {
                 Intent communityActivity = new Intent(this, CommunityActivity.class);
-                myself.setLastActivity("null");
-                communityActivity.putExtra("myself", myself);
-                startActivityForResult(communityActivity, 1);
+                communityActivity.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(communityActivity);
             }
         }
     }
 
     public void onBackPressed() {
-        // super.onBackPressed();
-        Log.i("PressBack", "Pressback clicked on login");
         Intent intent = new Intent();
-        intent.putExtra("myself", myself);
         setResult(RESULT_OK, intent);
         finish();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        if (requestCode == 1) {
-            if (resultCode == RESULT_OK) {
-                myself = data.getExtras().getParcelable("myself");
-                Intent mainyActivity = new Intent(this, MainActivity.class);
-
-                if (myself.getConnected().equals("connected")) {
-                    mainyActivity.putExtra("myself", myself);
-                    startActivity(mainyActivity);
-                }
-            }
-        }
     }
 }

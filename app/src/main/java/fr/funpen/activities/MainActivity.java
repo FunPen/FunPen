@@ -9,15 +9,12 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.util.Log;
 import android.view.Display;
-import android.view.Menu;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 
-import fr.funpen.customViews.User;
 import fr.funpen.dto.UserDto;
 import fr.stevecohen.eventBus.EventBus;
 
@@ -26,7 +23,6 @@ public class MainActivity extends Activity {
     protected FunPenApp funPenApp;
     private UserDto user;
     private EventBus eventBus;
-    private User myself;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +35,8 @@ public class MainActivity extends Activity {
         eventBus = EventBus.getEventBus();
         funPenApp = (FunPenApp) this.getApplicationContext();
 
-        Bundle extras = getIntent().getExtras();
-
-        if (extras != null)
-            myself = getIntent().getExtras().getParcelable("myself");
-        else
-            myself = new User("Unknow", "nobody@anonymous.eu", "notConnected");
+        if (user.getPseudo() == null)
+            user.init();
 
         setContentView(R.layout.activity_main);
         LinearLayout backgroundLayout = (LinearLayout) findViewById(R.id.mainMenu_backgroundLayout);
@@ -54,39 +46,38 @@ public class MainActivity extends Activity {
 
     public void onGalleryClicked(View v) {
         Intent galleryActivity = new Intent(this, GalleryActivity.class);
-        galleryActivity.putExtra("myself", myself);
         startActivity(galleryActivity);
     }
 
     public void onCommunityClicked(View v) {
         Intent communityActivity = new Intent(this, CommunityActivity.class);
-        communityActivity.putExtra("myself", myself);
-        startActivity(communityActivity);
-    }
 
-    public void onSettingsClicked(View v) {
-        Log.i("FunPen", "Settings clicked");
-        Intent setingsAct = new Intent(this, SettingsActivity.class);
-        //ActivityOptions opts = ActivityOptions.makeCustomAnimation(funPenApp, R.anim.slide_from_right, R.anim.nothing);
-        //startActivity(setingsAct, opts.toBundle());
-        startActivity(setingsAct);
+        if (!user.isLogged()) {
+            Intent loginActivity = new Intent(this, LoginActivity.class);
+            loginActivity.putExtra("lastActivity", "communityActivity");
+            startActivity(loginActivity);
+        } else
+            startActivity(communityActivity);
     }
 
     public void onBackgroundClicked(View v) {
-        Log.i("FunPen", "Draw clicked");
 
         final LinearLayout menu = (LinearLayout) findViewById(R.id.mainMenu_backgroundLayout);
         Animation fadeOut = AnimationUtils.loadAnimation(this, R.anim.fade_out);
         // Now Set your animation
         fadeOut.setAnimationListener(new Animation.AnimationListener() {
             @Override
-            public void onAnimationStart(Animation animation) {}
+            public void onAnimationStart(Animation animation) {
+            }
+
             @Override
             public void onAnimationEnd(Animation animation) {
                 menu.setAlpha(0);
             }
+
             @Override
-            public void onAnimationRepeat(Animation animation) {}
+            public void onAnimationRepeat(Animation animation) {
+            }
         });
         menu.startAnimation(fadeOut);
 
@@ -94,12 +85,6 @@ public class MainActivity extends Activity {
         ActivityOptions opts = ActivityOptions.makeCustomAnimation(funPenApp, R.anim.fade_in, R.anim.nothing);
         startActivity(drawActivity, opts.toBundle());
 //		startActivity(drawActivity);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
     }
 
     @Override
@@ -135,10 +120,6 @@ public class MainActivity extends Activity {
                             public void onClick(DialogInterface dialog, int id) {
                                 int p = android.os.Process.myPid();
                                 android.os.Process.killProcess(p);
-//                                Intent minimize = new Intent(Intent.ACTION_MAIN);
-//                                minimize.addCategory(Intent.CATEGORY_HOME);
-//                                minimize.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                                startActivity(minimize);
                             }
                         })
                 .setNegativeButton(R.string.mainMenu_exit_popup_no, new DialogInterface.OnClickListener() {
