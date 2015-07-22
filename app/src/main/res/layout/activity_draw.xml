@@ -23,7 +23,7 @@
             android:layout_marginTop="@dimen/mainMenu_Settings_margin"
             android:contentDescription="@string/drawView_flashButton_description"
             android:onClick="onFlashClick"
-            android:src="@drawable/flashicon_off" />
+            android:src="@drawable/flash_icon_off" />
 
         <LinearLayout
             android:id="@+id/drawView_bottomMenu"
@@ -47,7 +47,7 @@
                     android:layout_marginBottom="5dp"
                     android:contentDescription="@string/bottomMenu_arrowDescription"
                     android:rotation="180"
-                    android:src="@drawable/bottommenu_arrow" />
+                    android:src="@drawable/bottom_menu_arrow" />
             </RelativeLayout>
 
             <HorizontalScrollView
@@ -69,35 +69,35 @@
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:contentDescription="@string/bottomMenu_colorscaleDescription"
-                        android:src="@drawable/bottommenu_colorscale" />
+                        android:src="@drawable/bottom_menu_colorscale" />
 
                     <ImageView
                         android:id="@+id/tool_stretchButton"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:contentDescription="@string/bottomMenu_stretchDescription"
-                        android:src="@drawable/bottommenu_stretch" />
+                        android:src="@drawable/bottom_menu_stretch" />
 
                     <ImageView
                         android:id="@+id/tool_inflateButton"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:contentDescription="@string/bottomMenu_inflateDescription"
-                        android:src="@drawable/bottommenu_inflate" />
+                        android:src="@drawable/bottom_menu_inflate" />
 
                     <ImageView
                         android:id="@+id/tool_digButton"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:contentDescription="@string/bottomMenu_digDescription"
-                        android:src="@drawable/bottommenu_dig" />
+                        android:src="@drawable/bottom_menu_dig" />
 
                     <ImageView
                         android:id="@+id/tool_scisorsButton"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:contentDescription="@string/bottomMenu_scisorsDescription"
-                        android:src="@drawable/bottommenu_scisors" />
+                        android:src="@drawable/bottom_menu_scisors" />
                 </LinearLayout>
             </HorizontalScrollView>
         </LinearLayout>

@@ -19,7 +19,7 @@ public class CustomAdapter extends ArrayAdapter {
     public static final int USER = 0;
     public static final int FRIEND = 1;
     public static final int NOTFRIENDYET = 2;
-    private List<ListViewItem> objects;
+    private final List<ListViewItem> objects;
 
     @Override
     public int getViewTypeCount() {
@@ -39,12 +39,12 @@ public class CustomAdapter extends ArrayAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        ViewHolder viewHolder = null;
+        ViewHolder viewHolder;
         ListViewItem listViewItem = objects.get(position);
         int listViewItemType = getItemViewType(position);
 
         if (convertView == null) {
-            TextView textView = null;
+            TextView textView;
 
             if (listViewItemType == USER) {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.user_module, null);

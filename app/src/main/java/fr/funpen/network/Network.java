@@ -19,7 +19,7 @@ import java.util.List;
 public class Network {
     private static Network instance = null;
 
-    private Server server;
+    private final Server server;
 
     private Network() {
         server = Server.getInstance();
@@ -52,7 +52,7 @@ public class Network {
         HttpPost httppost = new HttpPost(server.getIp() + ":" + server.getPort() + "/" + server.getServicePage());
 
         try {
-            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+            List<NameValuePair> nameValuePairs = new ArrayList<>();
             nameValuePairs.add(new BasicNameValuePair("id", "12345"));
             nameValuePairs.add(new BasicNameValuePair("stringdata", "Hi"));
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));

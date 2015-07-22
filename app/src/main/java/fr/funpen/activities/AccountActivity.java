@@ -11,6 +11,7 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import fr.funpen.dto.FunPenApp;
 import fr.funpen.dto.UserDto;
 import fr.funpen.services.RestClient;
 
@@ -20,7 +21,6 @@ public class AccountActivity extends Activity {
     private UserDto user;
     private EditText username;
     private EditText mail;
-    private Toast toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,13 +49,9 @@ public class AccountActivity extends Activity {
         super.onResume();
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
     public void onEditClicked(View v) {
 
+        Toast toast;
         Context context = getApplicationContext();
         RestClient client = new RestClient(getResources().getString(R.string.localhost) + "/user/" + user.getId());
 

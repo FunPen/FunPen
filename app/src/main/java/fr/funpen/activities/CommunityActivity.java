@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import fr.funpen.dto.FunPenApp;
 import fr.funpen.dto.UserDto;
 
 

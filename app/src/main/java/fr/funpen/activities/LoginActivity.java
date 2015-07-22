@@ -16,9 +16,6 @@ import fr.funpen.services.RestClient;
 
 public class LoginActivity extends Activity {
 
-    private EditText ID;
-    private EditText PWD;
-    private Toast toast;
     private String lastActivity;
     private UserDto user;
 
@@ -43,6 +40,11 @@ public class LoginActivity extends Activity {
     }
 
     public void onLoginClicked(View view) {
+
+        EditText ID;
+        EditText PWD;
+        Toast toast;
+
         ID = (EditText) findViewById(R.id.field_email);
         PWD = (EditText) findViewById(R.id.field_password);
         Context context = getApplicationContext();

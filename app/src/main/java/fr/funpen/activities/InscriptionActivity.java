@@ -16,11 +16,7 @@ import fr.funpen.services.RestClient;
 
 public class InscriptionActivity extends Activity {
 
-    private EditText MAIL;
-    private EditText PWD;
-    private EditText PSEUDO;
     private UserDto user;
-    private Toast toast;
     private String lastActivity;
 
     @Override
@@ -39,6 +35,12 @@ public class InscriptionActivity extends Activity {
     }
 
     public void onSubscribeClicked(View view) {
+
+        EditText MAIL;
+        EditText PWD;
+        EditText PSEUDO;
+        Toast toast;
+
         MAIL = (EditText) findViewById(R.id.field_email);
         PWD = (EditText) findViewById(R.id.field_password);
         PSEUDO = (EditText) findViewById(R.id.field_pseudo);

@@ -9,8 +9,6 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import java.io.IOException;
-
 public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
 
     private SurfaceHolder mHolder;
@@ -70,13 +68,13 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
-        try {
+        /*try {
             mCamera.setPreviewDisplay(surfaceHolder);
             mCamera.setDisplayOrientation(90);
             mCamera.startPreview();
         } catch (IOException e) {
             Log.d("CameraView", "Error setting camera preview: " + e.getMessage());
-        }
+        }*/
     }
 
     @Override
@@ -107,7 +105,7 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
-        mCamera.stopPreview();
+        //mCamera.stopPreview();
         Log.i("FunPen", "Camera released");
     }
 

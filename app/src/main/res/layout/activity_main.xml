@@ -3,9 +3,9 @@
     android:id="@+id/mainMenu_mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity" >
+    tools:context=".MainActivity">
 
-     <include layout="@layout/camera" />
+    <include layout="@layout/camera" />
 
     <LinearLayout
         android:id="@+id/mainMenu_backgroundLayout"
@@ -14,7 +14,7 @@
         android:background="#99000000"
         android:clickable="true"
         android:onClick="onBackgroundClicked"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/mainMenu_touchToStart"
@@ -33,7 +33,7 @@
             android:layout_width="fill_parent"
             android:layout_height="0dp"
             android:layout_weight="0.33"
-            android:background="@drawable/mainmenu_buttonoverlay"
+            android:background="@drawable/main_menu_button_overlay"
             android:clickable="true"
             android:gravity="center_vertical|center_horizontal"
             android:onClick="onGalleryClicked"
@@ -46,7 +46,7 @@
             android:layout_width="fill_parent"
             android:layout_height="0dp"
             android:layout_weight="0.33"
-            android:background="@drawable/mainmenu_buttonoverlay"
+            android:background="@drawable/main_menu_button_overlay"
             android:clickable="true"
             android:gravity="center_vertical|center_horizontal"
             android:onClick="onCommunityClicked"

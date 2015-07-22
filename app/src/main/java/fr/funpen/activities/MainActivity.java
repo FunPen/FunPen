@@ -15,14 +15,13 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 
+import fr.funpen.dto.FunPenApp;
 import fr.funpen.dto.UserDto;
-import fr.stevecohen.eventBus.EventBus;
 
 public class MainActivity extends Activity {
 
-    protected FunPenApp funPenApp;
+    private FunPenApp funPenApp;
     private UserDto user;
-    private EventBus eventBus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +31,6 @@ public class MainActivity extends Activity {
         StrictMode.setThreadPolicy(policy);
 
         user = UserDto.getInstance();
-        eventBus = EventBus.getEventBus();
         funPenApp = (FunPenApp) this.getApplicationContext();
 
         if (user.getPseudo() == null)
@@ -94,11 +92,6 @@ public class MainActivity extends Activity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
         LinearLayout menu = (LinearLayout) findViewById(R.id.mainMenu_backgroundLayout);
         menu.setAlpha(1);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
     }
 
     public static Point getDisplaySize(Activity context) {

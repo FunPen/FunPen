@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 
 import fr.funpen.camera.MyGLRenderer;
 import fr.funpen.camera.MyGLSurfaceView;
+import fr.funpen.dto.FunPenApp;
 
 
 public class DrawActivity extends Activity implements SensorEventListener {
@@ -161,9 +162,9 @@ public class DrawActivity extends Activity implements SensorEventListener {
         ImageView flashImg = (ImageView) findViewById(R.id.flashButton);
         if (!turnOn) {
             camera.turnOffFlashLight();
-            flashImg.setImageResource(R.drawable.flashicon_off);
+            flashImg.setImageResource(R.drawable.flash_icon_off);
         } else {
-            flashImg.setImageResource(R.drawable.flashicon_on);
+            flashImg.setImageResource(R.drawable.flash_icon_on);
             camera.turnOnFlashLight();
         }
         isLightTurnedOn = !isLightTurnedOn;

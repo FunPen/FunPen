@@ -18,7 +18,7 @@
         android:required="true" />
 
     <application
-        android:name=".FunPenApp"
+        android:name="fr.funpen.dto.FunPenApp"
         android:allowBackup="true"
         android:debuggable="true"
         android:icon="@drawable/ic_launcher"

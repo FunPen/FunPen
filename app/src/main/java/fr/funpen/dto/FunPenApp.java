@@ -1,4 +1,4 @@
-package fr.funpen.activities;
+package fr.funpen.dto;
 
 import android.app.Activity;
 import android.app.Application;

@@ -3,19 +3,20 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/background1"
-    tools:context=".AccountActivity" >
+    tools:context=".AccountActivity">
 
     <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/frameLayout">
+
         <ImageView
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_marginTop="20dp"
             android:id="@+id/imageView4"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/android_avatar"/>
+            android:src="@drawable/android_avatar" />
     </FrameLayout>
 
     <FrameLayout
@@ -30,13 +31,13 @@
         android:id="@+id/frameLayout2">
 
         <EditText
-           android:layout_width="fill_parent"
-           android:layout_height="fill_parent"
-           android:inputType="textPersonName"
-           android:text="Pseudonyme"
-           android:ems="10"
-           android:textColor="#ffffff"
-           android:id="@+id/userNameAccount" />
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:inputType="textPersonName"
+            android:text="@string/activity_account_pseudo"
+            android:ems="10"
+            android:textColor="#ffffff"
+            android:id="@+id/userNameAccount" />
     </FrameLayout>
 
     <FrameLayout
@@ -53,7 +54,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:inputType="textPersonName"
-            android:text="Mail"
+            android:text="@string/activity_account_mail"
             android:ems="10"
             android:textColor="#ffffff"
             android:id="@+id/mailAccount" />
@@ -62,7 +63,7 @@
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Edit"
+        android:text="@string/activity_account_edit_button"
         android:id="@+id/button2"
         android:onClick="onEditClicked"
         android:layout_alignParentBottom="true" />

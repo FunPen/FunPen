@@ -24,10 +24,10 @@ import java.util.ArrayList;
  */
 public class RestClient {
 
-    private ArrayList<NameValuePair> params;
-    private ArrayList<NameValuePair> headers;
+    private final ArrayList<NameValuePair> params;
+    private final ArrayList<NameValuePair> headers;
 
-    private String url;
+    private final String url;
 
     private int responseCode;
     private String message;

@@ -2,30 +2,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@drawable/background1"
-    tools:context="fr.funpen.activities.FriendListActivity" >
+    tools:context="fr.funpen.activities.FriendListActivity">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <EditText
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="40dp"
+        android:background="#767B81"
+        android:hint="@string/friendActivity_hint_search"
+        android:textColorHint="#000000"
+        android:textSize="30sp"
+        android:inputType="textEmailAddress"
+        android:id="@+id/extractEditText" />
 
-        <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="#767B81"
-            android:hint="Search your friends"
-            android:textColorHint="#000000"
-            android:textSize="30sp"
-            android:inputType="textEmailAddress"
-            android:id="@+id/extractEditText" />
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="40dp">
 
         <ListView
             android:layout_width="match_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="match_parent"
             android:id="@+id/listView"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="5dp"/>
-    </LinearLayout>
+            android:layout_marginTop="5dp" />
+    </FrameLayout>
 
 </RelativeLayout>

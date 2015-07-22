@@ -1,45 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#21262B"
+    android:layout_marginBottom="5dp">
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:background="#21262B">
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/imageView2"
+        android:src="@drawable/android_avatar" />
 
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/imageView2"
-            android:src="@drawable/android_avatar"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:textColor="#ffffff"
+        android:text="@string/module_friend"
+        android:ems="10"
+        android:id="@+id/textModule" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:gravity="center"
-            android:textColor="#ffffff"
-            android:inputType="textPersonName"
-            android:text="Je suis un ami à toi"
-            android:ems="10"
-            android:id="@+id/textModule" />
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/imageButton4"
+        android:src="@drawable/moins"
+        android:onClick="deleteFriend" />
 
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:id="@+id/imageButton4"
-            android:src="@drawable/moins"
-            android:onClick="deleteFriend"/>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="left"
-            android:id="@+id/imageButton5"
-            android:src="@drawable/gallery_icon"/>
-    </LinearLayout>
-
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:id="@+id/imageButton5"
+        android:src="@drawable/gallery_icon" />
 </LinearLayout>

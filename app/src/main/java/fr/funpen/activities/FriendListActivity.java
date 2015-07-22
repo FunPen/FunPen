@@ -22,6 +22,7 @@ import java.util.List;
 
 import fr.funpen.customViews.CustomAdapter;
 import fr.funpen.customViews.ListViewItem;
+import fr.funpen.dto.FunPenApp;
 import fr.funpen.dto.UserDto;
 import fr.funpen.services.RestClient;
 
@@ -31,11 +32,9 @@ public class FriendListActivity extends Activity {
     private FunPenApp funPenApp;
     private RestClient clientUsername;
     private RestClient clientMail;
-    private RestClient clientInfoUser;
     private List<ListViewItem> userList;
     private CustomAdapter customAdapter;
     private EditText searchField;
-    private Toast toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,7 +141,9 @@ public class FriendListActivity extends Activity {
         });
     }
 
-    public void updateFriendsLayout() {
+    void updateFriendsLayout() {
+
+        RestClient clientInfoUser;
 
         clientInfoUser = new RestClient(getResources().getString(R.string.localhost) + "/user/" + user.getId());
 
@@ -193,7 +194,7 @@ public class FriendListActivity extends Activity {
         }
     }
 
-    public String checkFriendList(String username) {
+    String checkFriendList(String username) {
 
         String status = "unknow";
 
@@ -208,7 +209,7 @@ public class FriendListActivity extends Activity {
         return status;
     }
 
-    public String getID(View v) {
+    String getID(View v) {
 
         String clickedID = null;
         LinearLayout layoutCliked = (LinearLayout) v.getParent();
@@ -247,6 +248,8 @@ public class FriendListActivity extends Activity {
 
     public void addFriend(View v) {
 
+
+        Toast toast;
         RestClient clientAddFriend = new RestClient(getResources().getString(R.string.localhost) + "/user/" + user.getId() + "/friends/" + getID(v));
 
         clientAddFriend.AddHeader("Accept", "application/json");

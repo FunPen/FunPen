@@ -1,62 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    android:background="#21262B">
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:background="#21262B">
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/imageView2"
+        android:src="@drawable/android_avatar" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:textColor="#ffffff"
+        android:text="@string/module_not_friend"
+        android:ems="10"
+        android:id="@+id/textModule" />
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:onClick="addFriend">
 
         <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/imageView2"
-            android:src="@drawable/android_avatar"/>
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:id="@+id/imageButton6"
+            android:src="@drawable/plus"
+            android:onClick="addFriend" />
+    </FrameLayout>
 
-        <TextView
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:onClick="deleteFriend">
+
+        <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:gravity="center"
-            android:textColor="#ffffff"
-            android:inputType="textPersonName"
-            android:text="Je veut être ton amis"
-            android:ems="10"
-            android:id="@+id/textModule" />
-
-        <LinearLayout
-            android:layout_width="fill_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:weightSum="2">
-            <FrameLayout
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:onClick="addFriend">
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center"
-                    android:id="@+id/imageButton6"
-                    android:src="@drawable/plus"/>
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:onClick="deleteFriend">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="left"
-                    android:id="@+id/imageButton5"
-                    android:src="@drawable/moins"/>
-            </FrameLayout>
-        </LinearLayout>
-    </LinearLayout>
-
+            android:layout_gravity="start"
+            android:id="@+id/imageButton5"
+            android:src="@drawable/moins" />
+    </FrameLayout>
 </LinearLayout>

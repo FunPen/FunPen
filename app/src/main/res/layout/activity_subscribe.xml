@@ -3,13 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000"
-    tools:context="${relativePackage}.${activityClass}" >
+    tools:context="${relativePackage}.${activityClass}">
 
     <EditText
         android:id="@+id/field_pseudo"
         android:layout_width="220dp"
         android:layout_height="40dp"
         android:paddingLeft="7dp"
+        android:paddingRight="7dp"
         android:background="@drawable/edit_text_borders"
         android:ems="10"
         android:hint="@string/loginActivity_hintsPseudo"
@@ -25,6 +26,7 @@
         android:layout_width="220dp"
         android:layout_height="40dp"
         android:paddingLeft="7dp"
+        android:paddingRight="7dp"
         android:background="@drawable/edit_text_borders"
         android:ems="10"
         android:hint="@string/loginActivity_hintsEmail"
@@ -41,6 +43,7 @@
         android:layout_width="220dp"
         android:layout_height="40dp"
         android:paddingLeft="7dp"
+        android:paddingRight="7dp"
         android:background="@drawable/edit_text_borders"
         android:ems="10"
         android:hint="@string/loginActivity_hintsPassword"
@@ -57,7 +60,7 @@
         android:layout_width="260dp"
         android:layout_height="75dp"
         android:layout_marginBottom="52dp"
-        android:background="@drawable/mainmenu_buttonoverlay"
+        android:background="@drawable/main_menu_button_overlay"
         android:clickable="true"
         android:gravity="center_vertical|center_horizontal"
         android:onClick="onSubscribeClicked"

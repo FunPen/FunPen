@@ -2,9 +2,6 @@
 <resources>
 
     <string name="app_name">FunPen</string>
-    <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="mainMenu_settingsButton_description">Settings button on main menu</string>
     <string name="mainMenu_clickToDraw">Touch to start drawing</string>
     <string name="mainMenu_gallery">GALLERY</string>
     <string name="mainMenu_account">COMMUNITY</string>
@@ -19,7 +16,6 @@
     <string name="loginActivity_hintsEmail">Email</string>
     <string name="loginActivity_hintsEmailUsername">Email / Username</string>
     <string name="loginActivity_hintsPassword">Password</string>
-    <string name="loginActivity_createNewAccountCheckbox">Create new account</string>
     <string name="loginActivity_LoginButton">Login</string>
     <string name="subscribeActivity_SubscribeButton">Subscribe</string>
     <string name="bottomMenu_arrowDescription">Arrow to show open or close bottom menu</string>
@@ -30,12 +26,19 @@
     <string name="bottomMenu_scisorsDescription">With this tool you can cut</string>
     <string name="drawView_flashButton_description">Tap this button to toggle the flash light</string>
     <string name="loginActivity_GetPasswordButton">Inscription</string>
-    <string name="title_activity_test">TestActivity</string>
-    <string name="title_activity_settings">SettingsActivity</string>
     <string name="title_activity_gallery">GalleryActivity</string>
     <string name="title_activity_draw">DrawActivity</string>
     <string name="title_activity_community">CommunityActivity</string>
     <string name="title_activity_friend_list">FriendListActivity</string>
     <string name="title_activity_inscription">InscriptionActivity</string>
     <string name="localhost">http://192.168.1.95:1337</string>
+    <string name="activity_account_pseudo">Pseudonyme</string>
+    <string name="activity_account_mail">Mail</string>
+    <string name="activity_account_edit_button">Edit</string>
+    <string name="activity_community_address_mail">K@anonymous.com</string>
+    <string name="friendActivity_hint_search">Search your friends</string>
+    <string name="gallery_username">Gallerie de Pseudonyme</string>
+    <string name="module_user">Je suis un autre utilisateur</string>
+    <string name="module_friend">Je suis un ami à toi</string>
+    <string name="module_not_friend">Je veut être ton ami</string>
 </resources>

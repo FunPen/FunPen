@@ -16,6 +16,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.funpen.dto.FunPenApp;
 import fr.funpen.dto.UserDto;
 
 
@@ -53,17 +54,17 @@ public class GalleryActivity extends Activity {
     }
 
     private class MyAdapter extends BaseAdapter {
-        private List<Item> items = new ArrayList<>();
-        private LayoutInflater inflater;
+        private final List<Item> items = new ArrayList<>();
+        private final LayoutInflater inflater;
 
         public MyAdapter(Context context) {
             inflater = LayoutInflater.from(context);
 
-            items.add(new Item("Image 1", R.drawable.model1));
-            items.add(new Item("Image 2", R.drawable.model2));
-            items.add(new Item("Image 3", R.drawable.model3));
-            items.add(new Item("Image 4", R.drawable.model4));
-            items.add(new Item("Image 5", R.drawable.model5));
+            items.add(new Item("Image 1", R.drawable.model_1));
+            items.add(new Item("Image 2", R.drawable.model_2));
+            items.add(new Item("Image 3", R.drawable.model_3));
+            items.add(new Item("Image 4", R.drawable.model_4));
+            items.add(new Item("Image 5", R.drawable.model_5));
         }
 
         @Override

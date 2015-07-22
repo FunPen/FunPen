@@ -25,7 +25,6 @@ import fr.funpen.activities.R;
 
 public class Bluetooth extends Activity {
 
-    private BroadcastReceiver mReceiver;
     private BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     private List<String> mArrayAdapter = new ArrayList<>();
 
@@ -60,7 +59,7 @@ public class Bluetooth extends Activity {
         }
 
         // Create a BroadcastReceiver for ACTION_FOUND
-        mReceiver = new BroadcastReceiver() {
+        BroadcastReceiver mReceiver = new BroadcastReceiver() {
             public void onReceive(Context context, Intent intent) {
                 String action = intent.getAction();
                 // When discovery finds a device
